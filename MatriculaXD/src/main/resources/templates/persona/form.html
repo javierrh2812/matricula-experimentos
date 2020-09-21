@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head" />
+
+<body>
+
+	<h1 th:text="${titulo}"> INFO DE ALUMNO </h1>
+	
+	<form th:replace="layout :: personaForm"></form>
+
+</body>
+
+</html>
