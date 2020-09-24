@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head">
+<body>
+
+	<header th:replace="layout/layout::header"></header>
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<nav th:replace="layout/layout::sidebar"></nav>
+
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+				<h1 th:text="${titulo}"></h1>
+
+				<a type="button" th:href="@{nuevo}">Nueva matrícula</a>
+
+
+
+
+				<div class="row">
+					<label class="col-sm-2 col-form-label"> Semestre: </label>
+					<div class="col-sm-2">
+						<select class="form-select">
+							<option selected disabled>Elegir semestre</option>
+							<option value="2020-2">2020-2</option>
+							<option value="2020-1">2020-1</option>
+							<option value="2020-1">2019-2</option>
+							<option value="2020-1">2019-1</option>
+							<option value="todos">Todos</option>
+						</select>
+					</div>
+				</div>
+
+				<h3 th:text="'Reporte:'">REPORTE</h3>
+
+
+
+				<div id="replace">
+
+					<div th:fragment="curso">
+
+						<h4 th:text="${curso}">CURSO</h4>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nombre</th>
+									<th>Teléfono</th>
+									<th>DNI</th>
+								</tr>
+							</thead>
+
+							<tbody>
+
+								<tr th:each="x : ${alumnos}">
+									<td th:text="${x.id}">Nombre</td>
+									<td th:text="${x.nombre + ' '+ x.apellido}">Apellido</td>
+									<td th:text="${x.telefono}"></td>
+									<td th:text="${x.dni}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+
+			</main>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout::footer"></footer>
+</body>
+
+</html>

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -29,7 +30,7 @@ public @Data class Docente {
 	@Column(name = "apellido", nullable = false, length = 20)
 	private String apellido;
 	
-	@Column(name = "dni",unique=true, nullable = false, length = 8)
+	@Column(name = "dni",nullable = false, length = 8)
 	private String dni;
 
 	@Column(name = "sexo", nullable = false, length = 1)

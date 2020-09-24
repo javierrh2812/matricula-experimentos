@@ -39,6 +39,11 @@ public class CursoServiceImpl implements ICursoService{
 		cursoRepository.deleteById(ID);
 	}
 
+	@Override
+	public List<String> findCursosHabilitados() {
+		return cursoRepository.fetchByDistintNombreAndIsHabilitado();
+	}
+
 	
 
 }

@@ -1,42 +1,46 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="layout :: head">
-
+<head th:replace="layout/layout :: head"/>
 <body>
+	<header th:replace="layout/layout::header"></header>
+	<div class="container-fluid">
+		<div class="row">
+			<nav th:replace="layout/layout::sidebar"></nav>
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 p-10">
+				<h1 th:text="${titulo}">LISTA</h1>
 
-	
-	
-	
-	<h1 th:text="${titulo}"> LISTA </h1>
-	
-	<a type="button" th:href="@{nuevo}" th:text="${esModuloAlumnos?'Nuevo alumno':'Nuevo docente'}">Nuevo</a>
-	
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-				<th th:if="${esModuloAlumnos}">Correo</th>
-				<th th:if="not ${esModuloAlumnos}">Telefono</th>
-				<th th:if="not ${esModuloAlumnos}">DNI</th>
-				<th>Info</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			
-			<tr th:each="x : ${personas}">
-				<td th:text="${x.nombre}">Nombre</td>
-				<td th:text="${x.apellido}">Apellido</td>
-				<td th:if="${esModuloAlumnos}" th:text="${x.correo}">Correo</td>
-				<td th:if="not ${esModuloAlumnos}" th:text="${x.telefono}">Correo</td>
-				<td th:if="not ${esModuloAlumnos}" th:text="${x.dni}">Correo</td>
-				<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
-			</tr>
-		</tbody>
-	</table>
+				<a type="button" th:href="@{nuevo}"
+					th:text="${esModuloAlumnos?'Nuevo alumno':'Nuevo docente'}">Nuevo</a>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th th:if="${esModuloAlumnos}">Correo</th>
+							<th th:if="not ${esModuloAlumnos}">Telefono</th>
+							<th th:if="not ${esModuloAlumnos}">DNI</th>
+							<th>Info</th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+						<tr th:each="x : ${personas}">
+							<td th:text="${x.nombre}">Nombre</td>
+							<td th:text="${x.apellido}">Apellido</td>
+							<td th:if="${esModuloAlumnos}" th:text="${x.correo}">Correo</td>
+							<td th:if="not ${esModuloAlumnos}" th:text="${x.telefono}">Correo</td>
+							<td th:if="not ${esModuloAlumnos}" th:text="${x.dni}">Correo</td>
+							<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</main>
+		</div>
+	</div>
+	<footer th:replace="layout/layout::footer"></footer>
 </body>
-
 </html>

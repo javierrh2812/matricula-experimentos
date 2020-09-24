@@ -1,15 +1,107 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="layout :: head" />
-
+<head th:replace="layout/layout :: head" />
 <body>
+	<header th:replace="layout/layout::header"></header>
 
-	<h1 th:text="${titulo}"> INFO DE ALUMNO </h1>
-	
-	<form th:replace="layout :: personaForm"></form>
+	<div class="container-fluid">
 
+		<div class="row">
+
+			<nav th:replace="layout/layout::sidebar"></nav>
+
+
+
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+				<h1 th:text="${titulo}">INFO DE ALUMNO</h1>
+
+				<form class="" th:object="${persona}" th:action="${action}"
+					th:method="post">
+					
+					<input  type="hidden" th:field="*{id}"name="docente_id[]" />
+
+					<div class="row">
+						<div class="col-auto">
+							<label>Nombre: <input type="text" class="form-control"
+								th:field="*{nombre}" required pattern="[A-Za-z]{1,}" maxlength="20"
+								title="Nombre no válido" /></label>
+						</div>
+
+						<div class="col-auto">
+							<label>Apellido: <input type="text" class="form-control"
+								th:field="*{apellido}" required pattern="[A-Za-z   ]{1,}"
+								maxlength="20" title="Apellido no válido" /></label>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-auto">
+							<label>DNI: <input type="text" class="form-control"
+								th:field="*{dni}" pattern="[0-9]{8}" title="DNI no válido" /></label>
+						</div>
+
+						<div class="col-auto">
+							<label>Sexo: <select class="form-select"
+								th:field="*{sexo}">
+									<option selected disabled value="0">Elegir sexo</option>
+									<option th:value="M" th:text="Masculino"></option>
+									<option th:value="F" th:text="Femenino"></option>
+							</select>
+
+
+							</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-auto">
+							<label>Teléfono: <input type="text" class="form-control"
+								th:field="*{telefono}" /></label>
+						</div>
+
+						<div class="col-auto">
+							<label>Correo: <input type="email" class="form-control"
+								th:field="*{correo}" /></label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-auto">
+							<label>Fecha de Nacimiento: <input type="date"
+								class="form-control" th:field="*{fecNacimiento}" /></label>
+						</div>
+
+
+						<div class="col-auto" th:if="*{id}">
+							<label>Habilitado: <input type="text"
+								class="form-control" th:field="*{habilitado}" /></label>
+						</div>
+
+					</div>
+
+					<div class="col-auto">
+						<label>Dirección: <input type="text" class="form-control"
+							th:field="*{direccion}" /></label>
+					</div>
+
+
+					<div class="buttons">
+						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
+						<button class="btn btn-secondary" th:text="Regresar"
+							onclick="history.back()"></button>
+						<a class="btn btn-danger" type="button" th:text="Eliminar"
+							th:if="*{id}" th:href="@{eliminar}"
+							onclick="return confirm('Está seguro de eliminar?')"></a>
+					</div>
+				</form>
+
+			</main>
+
+		</div>
+	</div>
+	<footer th:replace="layout/layout::footer"></footer>
 </body>
-
 </html>

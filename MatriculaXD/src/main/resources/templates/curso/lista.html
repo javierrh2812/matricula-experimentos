@@ -2,32 +2,42 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: head">
-
+<head th:replace="layout/layout :: head">
 <body>
+	<header th:replace="layout/layout::header"></header>
+	<div class="container-fluid">
+		<div class="row">
+			<nav th:replace="layout/layout::sidebar"></nav>
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-	<h1 th:text="${titulo}"> LISTA </h1>
+
+				<h1 th:text="${titulo}">LISTA</h1>
+
+				<a type="button" th:href="@{nuevo}">Nuevo Curso</a>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nombre de Curso</th>
+							<th>Info</th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+						<tr th:each="x : ${cursos}">
+							<td th:text="${x.codigo}">Nombre</td>
+							<td th:text="${x.nombre}">Apellido</td>
+							<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</main>
+		</div>
+	</div>
 	
-	<a type="button" th:href="@{nuevo}">Nuevo Curso</a>
-	
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-				<th>Info</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			
-			<tr th:each="x : ${cursos}">
-				<td th:text="${x.codigo}">Nombre</td>
-				<td th:text="${x.nombre}">Apellido</td>
-				<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
-			</tr>
-		</tbody>
-	</table>
+	<footer th:replace="layout/layout::footer"></footer>
 </body>
 
 </html>

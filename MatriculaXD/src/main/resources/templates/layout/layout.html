@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title th:text="${titulo}">MatriculaXD</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" href="/img/book.png">
+
+<link rel="stylesheet" href="/css/bootstrap.css" />
+
+<link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-dark bg-dark sticky-top p-0">
+			<a class="navbar-brand col-md-2 px-4" href="/">MATRICULAXD</a>
+			<ul class="navbar-nav px-3">
+				<li class="nav-item text-nowrap"><a class="nav-link" href="#">Sign
+						out</a></li>
+			</ul>
+		</nav>
+
+
+
+
+	</header>
+
+	<nav th:fragment="sidebar" id="sidebar"
+		class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+		<div class="position-sticky pt-3">
+
+
+			<ul class="nav flex-column">
+
+				<li class="nav-item"><a class="nav-link" href="/"> <i
+						th:replace="layout/icons::homefill"></i> Inicio
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/alumnos/">
+						<i th:replace="layout/icons::people"></i> Alumnos
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/docentes/">
+						<i th:replace="layout/icons::peoplefill"></i> Docentes
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/cursos/"> <i
+						th:replace="layout/icons::book"></i> Cursos
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/matriculas/">
+						<i th:replace="layout/icons::calendar"></i> Matricula
+				</a></li>
+			</ul>
+
+		</div>
+	</nav>
+
+
+
+
+
+	<footer th:fragment="footer">
+
+
+		<script src="/js/bootstrap.min.js"></script>
+
+		<script src="/js/scripts.js">
+			
+		</script>
+
+	</footer>
+
+
+</body>
+
+</html>

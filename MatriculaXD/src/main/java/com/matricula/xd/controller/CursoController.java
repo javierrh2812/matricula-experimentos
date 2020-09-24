@@ -21,11 +21,12 @@ import com.matricula.xd.entity.Curso;
 import com.matricula.xd.service.ICursoService;
 import com.matricula.xd.service.IDocenteService;
 
+
 @Controller
 @SessionAttributes("curso")
 @RequestMapping("/cursos")
 public class CursoController {
-
+	
 	@Autowired
 	private ICursoService cursoService;
 	
@@ -33,9 +34,8 @@ public class CursoController {
 	private IDocenteService docenteService;
 
 	// LISTAR
-	@GetMapping
+	@GetMapping(value = "/")
 	public String listar(Model model) {
-
 		List<Curso> cursos = cursoService.findAll();
 		model.addAttribute("cursos", cursos);
 		model.addAttribute("titulo", "Lista de cursos");
@@ -51,7 +51,7 @@ public class CursoController {
 
 			if (!curso.isPresent()) {
 				model.addAttribute("info", "Docente no existe");
-				return "redirect:/cursos";
+				return "redirect:/cursos/";
 			} else {
 				model.addAttribute("titulo", "Información de Curso");
 				model.addAttribute("curso", curso.get());
@@ -89,16 +89,13 @@ public class CursoController {
 			if (result.hasErrors()) {
 				return "curso/form";
 			}
-
 			String mensajeFlash = (curso.getId() != null) ? "Curso editado" : "Curso Registrado";
-
 			cursoService.save(curso);
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 			return "curso/form";
- 
 		}
 		return "redirect:/cursos/";
 	}

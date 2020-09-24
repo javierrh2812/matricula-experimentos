@@ -7,4 +7,5 @@ INSERT INTO docentes (nombre, apellido, dni, sexo, telefono, correo, fec_nacimie
 INSERT INTO docentes (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado) VALUES ('Jorge', 'Larios', '12312328', 'M', '999888999', 'jlarios@gmail.com', '1988-10-30', 'Av. Republica de Panama',1);
 
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55544', 'Fundamentos de SI', 1, 1);
-INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55533', 'Diseño de BD', 2, 1);
+INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55533', 'Diseño de BD', 1, 1);
+INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55522', 'Diseño de BD', 2, 1);

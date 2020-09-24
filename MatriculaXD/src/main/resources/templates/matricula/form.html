@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head" />
+
+<body>
+
+	<header th:replace="layout/layout::header"></header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav th:replace="layout/layout::sidebar"></nav>
+
+
+			<!-- INICIO MAIN -->
+			<main id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+
+				<h1 th:text="${titulo}">INFO DE MATRICULO</h1>
+
+				<form th:object="${matricula}" th:action="${action}"
+					th:method="POST">
+
+
+					<!-- ALUMNO INPUT -->
+					<div th:if="*{id}">
+						<div>
+							<label>Alumno: <input th:field="*{alumno}"
+								class="form-control" /></label>
+							<button class="btn btn-info" th:text="'Agregar curso'"></button>
+						</div>
+					</div>
+
+					<div th:if="not *{id}">
+						<label class="col-sm-2 col-form-label"> Alumno: <select
+							class="form-select" th:field="*{alumno}">
+								<option value="0">Elegir Alumno</option>
+								<option th:each="x : ${alumnos}" th:value="${x.id}"
+									th:text="${x.nombre + ' ' + x.apellido}"></option>
+						</select>
+						</label>
+
+					</div>
+
+					<!-- SEMESTRE INPUT -->
+					<div class="col-sm-2">
+						<label class="col-sm-2 col-form-label"> Semestre: </label> <select
+							id="semestreSelect" th:field="*{semestre}" class="form-select">
+							<option value="2020-2">2020-2</option>
+							<option value="2020-1">2020-1</option>
+							<option value="2020-1">2019-2</option>
+							<option value="2020-1">2019-1</option>
+						</select>
+					</div>
+
+					<!-- BUSQUEDA DE CURSO -->
+
+					<div class="row" style="">
+						<!-- LISTA DE CURSOS -->
+						<div class="col-auto">
+							<label class="col-form-label"> Cursos: <select
+								id="cursoSelect" class="form-select">
+									<option value="0" selected disabled>Elegir Curso</option>
+									<option th:each="x : ${cursos}" th:value="${x}" th:text="${x}"></option>
+							</select></label>
+						</div>
+
+						<!-- BUSQUEDA DE DOCENTE -->
+						<div id="docentesDiv" class="col-auto">
+							<label class="col-form-label"> Docente: <select id="docenteSelect"
+								class="form-select">
+									<option value="0" selected disabled>Elegir Docente</option>
+									<option th:if="${docentes}" th:each="x : ${docentes}"
+										th:value="${x.id}" th:text="${x.nombre + ' '+ x.apellido}"></option>
+							</select>
+							</label>
+
+
+						</div>
+
+						<div class="col-auto" style="margin-top:28px">
+							<button id="btnAgregar" class="btn btn-info mx-2 col-auto"
+								th:text="'Agregar curso'"></button>
+						</div>
+					</div>
+
+					<div style="width: 50%">
+						<br>
+						<table class="table">
+							<thead>
+								<tr>
+									<td>Curso</td>
+									<td>Docente</td>
+									<td> </td>
+								</tr>
+							</thead>
+
+							<tbody id="cursosMatriculados">
+								<tr th:if="*{cursosMatriculados}">
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<!-- DIV BUTTONS -->
+					<div class="buttons">
+						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
+						<button class="btn btn-secondary" th:text="Regresar"
+							onclick="history.back()"></button>
+						<a class="btn btn-danger" type="button" th:text="Eliminar"
+							th:if="*{id}" th:href="@{eliminar}"
+							onclick="return confirm('¿Está seguro de eliminar?')"></a>
+					</div>
+
+				</form>
+
+			</main>
+			<!-- FIN MAIN -->
+		</div>
+	</div>
+
+
+	<footer th:replace="layout/layout::footer"></footer>
+</body>
+
+</html>

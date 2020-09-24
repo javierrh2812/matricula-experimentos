@@ -49,7 +49,9 @@ public @Data class Alumno {
 	@Column(name = "direccion", nullable = false, length = 40)
 	private String direccion;
 	
-	@Column(nullable=false)
+	@Column()
 	private Boolean habilitado=true; 
-
+	
+	@Column()
+	private Boolean matriculado=false; 
 }

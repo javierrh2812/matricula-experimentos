@@ -19,6 +19,7 @@ public class DocenteServiceImpl implements IDocenteService{
 	@Override
 	public Docente save(Docente entity) {
 		return docenteRepository.save(entity);
+		
 	}
 
 	@Override
@@ -34,6 +35,11 @@ public class DocenteServiceImpl implements IDocenteService{
 	@Override
 	public void deleteById(Long ID) {
 		docenteRepository.deleteById(ID);
+	}
+
+	@Override
+	public List<Docente> fetchDocentesByCursoHabilitado(String curso) {
+		return docenteRepository.fetchDocentesByCursoAndIsHabilitado(curso);
 	}
 	
 

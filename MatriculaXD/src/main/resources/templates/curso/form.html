@@ -2,54 +2,62 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: head"/>
+<head th:replace="layout/layout :: head" />
 
 <body>
 
-	
-	
-	<h1 th:text="${titulo}">INFO DE CURSO</h1>
+	<header th:replace="layout/layout::header"></header>
 
-	<form th:object="${curso}" th:action="${action}" th:method="POST">
-		<div>
-			<label>Codigo
-			<input type="text" th:field="*{codigo}" /></label>
-		</div>
+	<div class="container-fluid">
+		<div class="row">
+			
+			<nav th:replace="layout/layout::sidebar"></nav>
+			
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+				<h1 th:text="${titulo}">INFO DE CURSO</h1>
+
+				<form th:object="${curso}" th:action="${action}" th:method="POST">
+					<div>
+						<label>Codigo <input type="text" th:field="*{codigo}" /></label>
+					</div>
+
+					<div>
+						<label>Nombre: <input type="text" th:field="*{nombre}" /></label>
+					</div>
+
+					<div th:if="${docentes}">
+						<label> Docente: <select name="docente"
+							th:field="*{docente}">
+								<option th:each="x : ${docentes}" th:value="${x.id}"
+									th:text="${x.nombre + ' ' + x.apellido}"></option>
+						</select>
+						</label>
+					</div>
+
+					<div>
+						<label>Habilitado: <select th:field="*{habilitado}">
+								<option th:value=true th:text="SI"></option>
+								<option th:value=false th:text="NO"></option>
+						</select>
+						</label>
+					</div>
+
+					<div>
+						<button type="submit" th:text="Aceptar"></button>
+						<button th:text="Regresar" onclick="history.back()"></button>
+						<a type="button" th:text="Eliminar" th:if="*{id}"
+							th:href="@{eliminar}"
+							onclick="return confirm('¿Está seguro de eliminar?')"></a>
+					</div>
+				</form>
+
+			</main>
 		
-		<div>
-			<label>Nombre: 
-			<input type="text" th:field="*{nombre}" /></label>
 		</div>
-
-		<div th:if="${docentes}">
-			<label > Docente:
-			<select name="docente" th:field="*{docente}" >
-				<option th:each="x : ${docentes}"
-						th:value="${x.id}"
-						th:text="${x.nombre + ' ' + x.apellido}"></option>
-			</select>
-			</label>
-		</div>
-
-		<div>
-			<label>Habilitado: 
-			<select th:field="*{habilitado}" >
-				<option th:value=true th:text="SI"></option>
-				<option th:value=false th:text="NO"></option>
-			</select>
-			</label>
-		</div>
-		
-		<div>
-			<button type="submit" th:text="Aceptar"></button>
-			<button th:text="Regresar" onclick="history.back()"></button>
-			<a type="button" th:text="Eliminar" th:if="*{id}"
-				th:href="@{eliminar}"
-				onclick="return confirm('¿Está seguro de eliminar?')"></a>
-		</div>
-	</form>
+	</div>
 	
-	
+	<footer th:replace="layout/layout::footer"></footer>
 </body>
 
 </html>
