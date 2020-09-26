@@ -18,23 +18,22 @@
 
 				<h1 th:text="${titulo}">INFO DE MATRICULO</h1>
 
-				<form th:object="${matricula}" th:action="${action}"
+				<form th:object="${matricula}" action="/matriculas/guardar"
 					th:method="POST">
-
 
 					<!-- ALUMNO INPUT -->
 					<div th:if="*{id}">
 						<div>
 							<label>Alumno: <input th:field="*{alumno}"
-								class="form-control" /></label>
+								class="form-control" required disabled/></label>
 							<button class="btn btn-info" th:text="'Agregar curso'"></button>
 						</div>
 					</div>
 
 					<div th:if="not *{id}">
 						<label class="col-sm-2 col-form-label"> Alumno: <select
-							class="form-select" th:field="*{alumno}">
-								<option value="0">Elegir Alumno</option>
+							class="form-select" th:field="*{alumno}" required>
+								<option value="0" disabled selected>Elegir Alumno</option>
 								<option th:each="x : ${alumnos}" th:value="${x.id}"
 									th:text="${x.nombre + ' ' + x.apellido}"></option>
 						</select>
@@ -44,13 +43,8 @@
 
 					<!-- SEMESTRE INPUT -->
 					<div class="col-sm-2">
-						<label class="col-sm-2 col-form-label"> Semestre: </label> <select
-							id="semestreSelect" th:field="*{semestre}" class="form-select">
-							<option value="2020-2">2020-2</option>
-							<option value="2020-1">2020-1</option>
-							<option value="2020-1">2019-2</option>
-							<option value="2020-1">2019-1</option>
-						</select>
+						<label class="col-sm-2 col-form-label"> Semestre: </label> 
+						<input th:field="*{semestre}" class="form-control" disabled/>
 					</div>
 
 					<!-- BUSQUEDA DE CURSO -->

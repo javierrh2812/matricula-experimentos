@@ -1,5 +1,7 @@
 package com.matricula.xd.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,9 +24,7 @@ import com.matricula.xd.entity.Curso;
 import com.matricula.xd.entity.Matricula;
 import com.matricula.xd.service.IAlumnoService;
 import com.matricula.xd.service.ICursoService;
-import com.matricula.xd.service.IDocenteService;
 import com.matricula.xd.service.IMatriculaService;
-import com.matricula.xd.service.impl.CursoServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,17 +42,12 @@ public class MatriculaController {
 	private IAlumnoService alumnoService;
 	
 	@Autowired
-	private IDocenteService docenteService;
-	
-	@Autowired
 	private ICursoService cursoService;
 	
 	// LISTAR
 	@GetMapping("/")
 	public String list(Model model) {
 
-		List<Matricula> matriculas = matriculaService.findAll();
-		model.addAttribute("matriculas", matriculas);
 		model.addAttribute("titulo", "Alumnos Matriculados");
 		return "/matricula/lista";
 	}
@@ -96,9 +92,11 @@ public class MatriculaController {
 	
 	// GUARDAR FORM
 	@PostMapping(value = "/guardar")
-	public String saveAlumno(@Valid Matricula matricula, BindingResult result, Model model, RedirectAttributes flash,
+	public String saveAlumno(@Valid Matricula matricula, BindingResult result, 
+			@RequestParam(value="cursos[]") String[] cursos,
+			@RequestParam(value="docentes[]") Long[] docentes,
+			Model model, RedirectAttributes flash,
 			SessionStatus status) {
-
 		try {
 			if (result.hasErrors()) {
 				model.addAttribute("titulo", (matricula.getId() != null)?"Editar Matricula":"Nueva Matricula");
@@ -106,14 +104,23 @@ public class MatriculaController {
 			}
 			String mensajeFlash = (matricula.getId() != null) ? "Matricula editada" : "Matricula Registrado";
 
+			matricula.setFechaMatricula(new Date());
+			List<Curso> cursosMatriculados = new ArrayList<Curso>();
+			for (int i = 0 ; i< docentes.length; i++) {
+				cursosMatriculados
+					.add(cursoService.fetchByNombreAndDocenteId(cursos[i], docentes[i]));
+			}
+			matricula.setCursosMatriculados(cursosMatriculados);	
 			matriculaService.save(matricula);
+			
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
+			
 		} catch (Exception e) {
 			model.addAttribute("info", e.getMessage());
 			return "matricula/form";
 		}
-		return "redirect:/matriculas";
+		return "redirect:/matriculas/";
 	}
 
 	

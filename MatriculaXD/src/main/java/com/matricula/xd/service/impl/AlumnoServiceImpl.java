@@ -36,4 +36,9 @@ public class AlumnoServiceImpl implements IAlumnoService{
 		alumnoRepository.deleteById(ID);
 	}
 
+	@Override
+	public List<Alumno> fetchAlumnosByCursoAndCiclo(Long curso_id, String ciclo) {
+		return alumnoRepository.fetchAlumnosByCursoAndCiclo(curso_id, ciclo);
+	}
+
 }

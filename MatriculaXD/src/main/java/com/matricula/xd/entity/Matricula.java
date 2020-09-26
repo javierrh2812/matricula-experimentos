@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,8 +29,8 @@ public @Data class Matricula {
 	@OneToOne
 	private Alumno alumno;
 	
-	@Column(nullable = false, length = 20)
-	private String semestre;
+	@Column()
+	private String semestre="2020-2";
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -40,7 +40,7 @@ public @Data class Matricula {
 	//@OneToMany(orphanRemoval = true)
 	//private List<AlumnoCurso> cursosMatriculados;
 	
-	@OneToMany()
+	@ManyToMany()
 	private List<Curso> cursosMatriculados;
 	
 }

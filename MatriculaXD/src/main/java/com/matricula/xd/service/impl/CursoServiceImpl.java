@@ -44,6 +44,11 @@ public class CursoServiceImpl implements ICursoService{
 		return cursoRepository.fetchByDistintNombreAndIsHabilitado();
 	}
 
+	@Override
+	public Curso fetchByNombreAndDocenteId(String nombre, Long docente_id) {
+		return cursoRepository.findByNombreAndDocenteId(nombre, docente_id);
+	}
+
 	
 
 }

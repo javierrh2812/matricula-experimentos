@@ -12,7 +12,7 @@
 				<a type="button" th:href="@{nuevo}"
 					th:text="${esModuloAlumnos?'Nuevo alumno':'Nuevo docente'}">Nuevo</a>
 
-				<table class="table">
+				<table class="table" th:fragment="listaPersonas">
 					<thead>
 						<tr>
 							<th>Nombre</th>
@@ -20,7 +20,7 @@
 							<th th:if="${esModuloAlumnos}">Correo</th>
 							<th th:if="not ${esModuloAlumnos}">Telefono</th>
 							<th th:if="not ${esModuloAlumnos}">DNI</th>
-							<th>Info</th>
+							<th th:if="not ${api}">Info</th>
 						</tr>
 					</thead>
 
@@ -32,7 +32,7 @@
 							<td th:if="${esModuloAlumnos}" th:text="${x.correo}">Correo</td>
 							<td th:if="not ${esModuloAlumnos}" th:text="${x.telefono}">Correo</td>
 							<td th:if="not ${esModuloAlumnos}" th:text="${x.dni}">Correo</td>
-							<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
+							<td th:if="not ${api}"><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
 						</tr>
 					</tbody>
 				</table>

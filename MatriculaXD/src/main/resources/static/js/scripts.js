@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	}
 	
+	
+	
+	/**METODO PARA LISTAR ALUMNOS Y CURSOS DEL SEMESTRE**/
+	
+	
 	if(document.title=='Alumnos Matriculados'){
 		
 		const semestreSelect = document.querySelector("#semestreSelect")
@@ -26,6 +31,8 @@ document.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 	
+	
+	//MÉTODO PARA LAS LINEAS DE CURSOS MATRICULADOS CON DOCENTE
 	
 	if (document.title=='Nueva Matricula'||document.title=='Editar Matricula'){
 		
@@ -51,24 +58,28 @@ document.addEventListener("DOMContentLoaded", function(){
 		
 			if (!hasCurso()){
 			
-			console.log("no tiene curso")
-			cursosTBody.innerHTML+=
-			
-			`<tr id="linea${cursoSelect.selectedIndex}">
-				<td id="curso${cursoSelect.selectedIndex}">${cursoSelect.value}</td>
-				<td class="d-none"><input type="hidden" value="{docenteSelect.value}"name="docente_id[]" /></td>
-				<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
-				<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>
-			</tr>`
+				//SE AÑADE UNA LINEA DE CURSO, SI ES QUE NO ESTÁ AGREGADO EL CURSO
+				
+				cursosTBody.innerHTML+=
+				
+				`<tr id="linea${cursoSelect.selectedIndex}">
+					<td id="curso${cursoSelect.selectedIndex}"><input name="cursos[]" value="${cursoSelect.value}"/></td>
+					<td class="d-none"><input type="hidden" value="${docenteSelect.value}"name="docentes[]" /></td>
+					<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
+					<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>
+				</tr>`
 			
 			}
 			
 			else{
+
+				//SI EL CURSO YA ESTÁ AGREGADO, SOLO SE REEMPLAZA LA LINEA SI CAMBIA DE PROFESOR
+					
 				let el = "linea" + cursoSelect.selectedIndex
-				console.log(el)
+
 				document.getElementById(el).innerHTML=
-				`<td id="curso${cursoSelect.selectedIndex}">${cursoSelect.value}</td>
-				<td class="d-none"><input type="hidden" value="{docenteSelect.value}"name="docente_id[]" /></td>
+				`<td id="curso${cursoSelect.selectedIndex}"><input name="cursos[]" value="${cursoSelect.value}"/></td>
+				<td class="d-none"><input type="hidden" value="${docenteSelect.value}"name="docentes[]" /></td>
 				<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
 				<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>`
 			}

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -20,6 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.matricula.xd.entity.Alumno;
 import com.matricula.xd.service.IAlumnoService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @SessionAttributes("alumno")
 @RequestMapping("/alumnos")
@@ -98,7 +102,7 @@ public class AlumnoController {
 			return "persona/form";
  
 		}
-		return "redirect:/alumnos";
+		return "redirect:/alumnos/";
 	}
 
 	
@@ -115,6 +119,27 @@ public class AlumnoController {
 			model.addAttribute("error", "Ha ocurrido un error");
 		}
 		return "redirect:/alumnos";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/api")
+	public String getDocentesPorCurso(Model model,
+			@RequestParam(name="curso") Long curso_id, 
+			@RequestParam(name="semestre") String semestre) {
+		
+		log.info("pidiendo alumnos de curso: "+curso_id+", semestre:" +semestre);
+		model.addAttribute("api", true);
+		model.addAttribute("personas", alumnoService.fetchAlumnosByCursoAndCiclo(curso_id, semestre));
+		return "persona/lista :: listaPersonas";
 	}
 
 }
