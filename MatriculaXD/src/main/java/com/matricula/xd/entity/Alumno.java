@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,11 +24,13 @@ public @Data class Alumno {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nombre", nullable = false, length = 20)
+	@NotBlank(message = "El nombre no puede estar vacío")
+	@Column(name = "nombre", length = 20)
 	private String nombre;
 	
 	@Column(name = "apellido", nullable = false, length = 20)
 	private String apellido;
+	
 	
 	@Column(name = "dni",unique=true, nullable = false, length = 8)
 	private String dni;

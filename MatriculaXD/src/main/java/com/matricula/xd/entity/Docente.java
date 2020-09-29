@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,7 +33,9 @@ public @Data class Docente {
 	@Column(name = "apellido", nullable = false, length = 20)
 	private String apellido;
 	
-	@Column(name = "dni",nullable = false, length = 8)
+	@Max(value = 99999999)
+	@Min(value = 00000000)
+	@Column(name = "dni",nullable = false, unique=true, length = 8)
 	private String dni;
 
 	@Column(name = "sexo", nullable = false, length = 1)
@@ -38,6 +44,7 @@ public @Data class Docente {
 	@Column(name = "telefono", nullable = false, length = 9)
 	private String telefono;
 	
+	@Email(message = "Correo inválido")
 	@Column(name = "correo", nullable = false, length = 30) //cambiar en requerimientos
 	private String correo;
 	

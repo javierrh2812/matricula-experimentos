@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"/>
+<body>
+
+
+			<div th:fragment="Lista">
+				<h5 th:text=${cursoTitulo} class="bg-dark text-white" ></h5>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>Correo</th>
+							<th>Telefono</th>
+							<th>DNI</th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+						<tr th:each="x : ${alumnos}">
+							<td th:text="${x.nombre}">Nombre</td>
+							<td th:text="${x.apellido}">Apellido</td>
+							<td th:text="${x.correo}">Correo</td>
+							<td th:text="${x.telefono}">Correo</td>
+							<td th:text="${x.dni}">Correo</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+</body>
+</html>

@@ -104,7 +104,7 @@ public class MatriculaController {
 			}
 			String mensajeFlash = (matricula.getId() != null) ? "Matricula editada" : "Matricula Registrado";
 
-			matricula.setFechaMatricula(new Date());
+			//smatricula.setFechaMatricula(new Date());
 			List<Curso> cursosMatriculados = new ArrayList<Curso>();
 			for (int i = 0 ; i< docentes.length; i++) {
 				cursosMatriculados

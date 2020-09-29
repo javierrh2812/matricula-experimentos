@@ -32,5 +32,9 @@ public @Data class Curso{
 
 	@Column(nullable=false)
 	private Boolean habilitado=true;
+	
+	public String titulo() {
+		return "Curso: "+nombre + "/ Docente:" + docente.getNombre() + " "+docente.getApellido();
+	}
 
 }

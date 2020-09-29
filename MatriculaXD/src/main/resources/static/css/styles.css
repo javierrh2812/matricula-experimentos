@@ -81,3 +81,34 @@ body {
 .buttons > * {
 	margin-right:3%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*****FORM***/
+
+
+.form {
+	padding: 30px 40px;	
+}
+
+.form-el {
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.form-el label {
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
+

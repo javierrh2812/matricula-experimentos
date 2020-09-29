@@ -25,49 +25,20 @@
 				<div class="row">
 					<label class="col-sm-2 col-form-label"> Semestre: </label>
 					<div class="col-sm-2">
-						<select class="form-select">
+						<select class="form-select" id="semestreSelect">
 							<option selected disabled>Elegir semestre</option>
 							<option value="2020-2">2020-2</option>
 							<option value="2020-1">2020-1</option>
-							<option value="2020-1">2019-2</option>
-							<option value="2020-1">2019-1</option>
+							<option value="2019-2">2019-2</option>
+							<option value="2019-1">2019-1</option>
 							<option value="todos">Todos</option>
 						</select>
 					</div>
 				</div>
 
-				<h3 th:text="'Reporte:'">REPORTE</h3>
 
 
-
-				<div id="replace">
-
-					<div th:fragment="curso">
-
-						<h4 th:text="${curso}">CURSO</h4>
-						<table class="table">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Nombre</th>
-									<th>Teléfono</th>
-									<th>DNI</th>
-								</tr>
-							</thead>
-
-							<tbody>
-
-								<tr th:each="x : ${alumnos}">
-									<td th:text="${x.id}">Nombre</td>
-									<td th:text="${x.nombre + ' '+ x.apellido}">Apellido</td>
-									<td th:text="${x.telefono}"></td>
-									<td th:text="${x.dni}"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-
-				</div>
+				<div id="replace"></div>
 
 			</main>
 		</div>

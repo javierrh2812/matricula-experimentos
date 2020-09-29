@@ -11,25 +11,76 @@ document.addEventListener("DOMContentLoaded", function(){
 		.then(res => res.text())
 		.then(data => { element.innerHTML=data	})
 		.then( () => {fn()})
-	
+		.catch(()=>{element.innerHTML="Error al obtener: gaaa"})
 	}
 	
-	
-	
 	/**METODO PARA LISTAR ALUMNOS Y CURSOS DEL SEMESTRE**/
-	
-	
 	if(document.title=='Alumnos Matriculados'){
 		
 		const semestreSelect = document.querySelector("#semestreSelect")
 		const replaceDiv = document.querySelector("div#replace")
 		
 		replaceDiv.innerHTML="Elige un Semestre para ver el reporte."
-		
 		semestreSelect.onchange= ()=>{
-		 	console.log(document.URL+select.value)
+			let url = domain+'api/cursos?semestre='+semestreSelect.value
+		 	let cursosId=[];
+		 	let sem=semestreSelect.value
+		 	
+		 	fetch(url)
+		 	.then(res=>res.json())
+		 	.then(data=>{
+		 		cursosId=data})
+		 	.then(()=>{
+			 	replaceDiv.innerHTML=`<hr/><h3>Periodo: ${sem}</h3><hr/>`
+			 	
+			 	if(cursosId.length>0){
+				 	for(let i of cursosId)
+				 	replaceDiv.innerHTML+=`<div id="curso${i}">CURSO${i}</div>`
+				 	
+				 	
+				 	for(let i of cursosId)
+				 	load(`${domain}alumnos/api/${sem}/${i}`, document.getElementById(`curso${i}`), function(){})
+			 	
+		 		}
+		 	
+		 		else replaceDiv.innerHTML+='No hay alumnos matriculados en el ciclo'
+		 	})
+		 			 	
 		}
+
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//MÉTODO PARA LAS LINEAS DE CURSOS MATRICULADOS CON DOCENTE

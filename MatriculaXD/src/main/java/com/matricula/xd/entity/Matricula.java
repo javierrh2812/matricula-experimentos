@@ -32,13 +32,11 @@ public @Data class Matricula {
 	@Column()
 	private String semestre="2020-2";
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	/*@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_matricula", nullable = false)
 	private Date fechaMatricula;
-	
-	//@OneToMany(orphanRemoval = true)
-	//private List<AlumnoCurso> cursosMatriculados;
+	*/
 	
 	@ManyToMany()
 	private List<Curso> cursosMatriculados;

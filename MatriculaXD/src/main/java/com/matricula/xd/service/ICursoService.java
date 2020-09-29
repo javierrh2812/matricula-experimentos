@@ -10,4 +10,6 @@ public interface ICursoService extends CrudService<Curso, Long> {
 	
 	Curso fetchByNombreAndDocenteId(String nombre, Long docente_id);
 	
+	List<Long> fetchCursosIdBySemestre(String semestre);
+	
 }

@@ -49,6 +49,11 @@ public class CursoServiceImpl implements ICursoService{
 		return cursoRepository.findByNombreAndDocenteId(nombre, docente_id);
 	}
 
+	@Override
+	public List<Long> fetchCursosIdBySemestre(String semestre) {
+		return cursoRepository.fetchCursosIdsBySemestre(semestre);
+	}
+
 	
 
 }

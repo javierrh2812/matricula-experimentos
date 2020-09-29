@@ -20,20 +20,45 @@ INSERT INTO docentes (nombre, apellido, dni, sexo, telefono, correo, fec_nacimie
 INSERT INTO docentes (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado) VALUES ('Juan', 'Mansilla','55443322', 'M', '922888888', 'jmansilla@gmail.com', '1978-10-30', 'Av. El Bingo',1);
 
 
+INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55488', 'Fundamentos de SI', 	1, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55544', 'Fundamentos de SI', 	3, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55533', 'Diseño de BD', 		3, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55522', 'Diseño de BD', 		4, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55511', 'Diseño de BD', 		5, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55500', 'Diseño de BD', 		1, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55499', 'Diseño de BD', 		2, 1);
-INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55488', 'Fundamentos de SI', 	1, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55477', 'Business Intelligence',5, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55466', 'Business Intelligence',4, 1);
-INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55455', 'C++ Programming', 	2, 1);
+INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55455', 'C Programming', 	2, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55444', 'Intro to Git', 		2, 1);
 INSERT INTO cursos (codigo, nombre, docente_id, habilitado) VALUES ('55433', 'Intro to Linux Bash', 2, 1);
 
 
 
+INSERT INTO matriculas(alumno_id, semestre) VALUES (1,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (2,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (3,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (4,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (5,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (6,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (7,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (8,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (9,'2020-1');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (10,'2020-1');
 
 
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (1,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (1,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (1,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (2,2);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (2,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (2,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (3,2);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (3,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (3,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,2);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,8);

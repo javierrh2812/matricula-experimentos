@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<script type="text/javascript" th:fragment="javascript">
+
+	
+	document.addEventListener("DOMContentLoaded", ()=>{
+
+		
+		for (let el of Array.from(document.querySelectorAll("input"))){
+			
+			let small = el.parentNode.parentNode.querySelector("small");
+			
+			el.onchange = () =>{
+				el.value= el.value.trim()
+			}
+			
+			el.addEventListener("valid", ()=>{
+				alert("gaa")
+			})
+		}		
+
+
+	})
+	
+	</script>
+</body>
+</html>

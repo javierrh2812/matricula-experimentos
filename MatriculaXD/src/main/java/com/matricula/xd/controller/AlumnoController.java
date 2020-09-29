@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.matricula.xd.entity.Alumno;
 import com.matricula.xd.service.IAlumnoService;
+import com.matricula.xd.service.ICursoService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,9 @@ public class AlumnoController {
 
 	@Autowired
 	private IAlumnoService alumnoService;
+	
+	@Autowired
+	private ICursoService cursoService;
 
 	// LISTAR
 	@GetMapping
@@ -98,7 +102,6 @@ public class AlumnoController {
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
 		} catch (Exception e) {
-			model.addAttribute("info", "El Alumno ya esta Registrado");
 			return "persona/form";
  
 		}
@@ -131,15 +134,16 @@ public class AlumnoController {
 	
 	
 	
-	@GetMapping("/api")
-	public String getDocentesPorCurso(Model model,
-			@RequestParam(name="curso") Long curso_id, 
-			@RequestParam(name="semestre") String semestre) {
+	@GetMapping("/api/{semestre}/{idcurso}")
+	public String getReporteSemestre(Model model,
+			@PathVariable(value = "semestre") String semestre,
+			@PathVariable(value = "idcurso") Long idcurso) {
 		
-		log.info("pidiendo alumnos de curso: "+curso_id+", semestre:" +semestre);
-		model.addAttribute("api", true);
-		model.addAttribute("personas", alumnoService.fetchAlumnosByCursoAndCiclo(curso_id, semestre));
-		return "persona/lista :: listaPersonas";
+		log.info("pidiendo alumnos semestre:" +semestre+ ", cursoid:"+idcurso);
+		model.addAttribute("alumnos", alumnoService.fetchAlumnosByCursoAndCiclo(idcurso, semestre) );
+		model.addAttribute("cursoTitulo", cursoService.findById(idcurso).get().titulo());
+
+		return "matricula/templateReporteAlumnos :: Lista";
 	}
 
 }

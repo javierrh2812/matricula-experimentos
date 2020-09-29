@@ -27,4 +27,5 @@ public interface AlumnoRepository extends CrudRepository<Alumno, Long>  {
 			+ "where m.semestre=?2 and c.id=?1")
 	List<Alumno> fetchAlumnosByCursoAndCiclo(Long idCurso, String ciclo);
 	
+	
 }

@@ -16,76 +16,107 @@
 
 				<h1 th:text="${titulo}">INFO DE ALUMNO</h1>
 
-				<form class="" th:object="${persona}" th:action="${action}"
+				<form id="form" th:object="${persona}" th:action="${action}"
 					th:method="post">
-					
-					<input  type="hidden" th:field="*{id}" />
+
+					<input type="hidden" th:field="*{id}" />
 
 					<div class="row">
-						<div class="col-auto">
-							<label>Nombre: <input type="text" class="form-control"
-								th:field="*{nombre}" required pattern="[A-Za-z ]{1,}" maxlength="20"
-								title="Nombre no válido" /></label>
+						<!-- NOMBRE -->
+						<div class="col-auto form-el">
+							<label>Nombre: <input id="nombre" type="text"
+								class="form-control" th:field="*{nombre}" required
+								pattern="[A-Za-z ]{1,}" maxlength="20" /></label>
+								<small></small>
 						</div>
-
-						<div class="col-auto">
-							<label>Apellido: <input type="text" class="form-control"
-								th:field="*{apellido}" required pattern="[A-Za-z ]{1,}"
-								maxlength="20" title="Apellido no válido" /></label>
+						<!-- APELLIDO -->
+						<div class="col-auto form-el">
+							<label>Apellido: <input id="apellido" type="text"
+								class="form-control" th:field="*{apellido}" required
+								pattern="[A-Za-z ]{1,}" maxlength="20" /></label>
+								<small></small>
 						</div>
+						
 					</div>
 
 
 
 					<div class="row">
-						<div class="col-auto">
-							<label>DNI: <input type="text" class="form-control"
-								th:field="*{dni}" required pattern="[0-9]{8}" title="DNI no válido" /></label>
+						<!-- DNI -->
+						<div class="col-auto form-el">
+							<label>DNI: <input id="dni" type="text"
+								class="form-control" th:field="*{dni}" required
+								pattern="[0-9]{8}" /></label>
+								<small></small>
 						</div>
-
-						<div class="col-auto">
-							<label>Sexo: <select class="form-select"  required
-								th:field="*{sexo}" >
+						<!-- SEXO -->
+						<div class="col-auto form-el">
+							<label>Sexo: <select id="sexo" class="form-select"
+								required th:field="*{sexo}">
 									<option th:value="0" disabled>Elegir sexo</option>
 									<option th:value="M" th:text="Masculino"></option>
 									<option th:value="F" th:text="Femenino"></option>
 							</select>
 							</label>
+							<small></small>
 						</div>
 					</div>
+
+
+
 
 
 					<div class="row">
-						<div class="col-auto">
-							<label>Teléfono: <input type="text" class="form-control"
-								th:field="*{telefono}" required pattern="[0-9]{9}" /></label>
+						<!-- telefono -->
+						<div class="col-auto form-el">
+							<label>Teléfono: <input id="telefono" type="text"
+								class="form-control" th:field="*{telefono}" required
+								pattern="[0-9]{9}" /></label>
+								<small></small>
 						</div>
-
-						<div class="col-auto">
-							<label>Correo: <input type="email" class="form-control"
-								th:field="*{correo}" /></label>
+						<!-- correo -->
+						<div class="col-auto form-el">
+							<label>Correo: <input id="correo" type="email" required
+								class="form-control" th:field="*{correo}" /></label>
+								<small></small>
 						</div>
 					</div>
+
+
+
 
 
 					<div class="row">
-						<div class="col-auto">
-							<label>Fecha de Nacimiento: <input type="date"
-								class="form-control" th:field="*{fecNacimiento}"  required/></label>
+						
+						<!-- fecnacimiento -->
+						<div class="col-auto form-el">
+							<label>Fecha de Nacimiento: <input id="fecNacimiento"
+								type="date" class="form-control" th:field="*{fecNacimiento}"
+								required /></label>
+								<small></small>
 						</div>
 
-
-						<div class="col-auto" th:if="*{id}">
-							<label>Habilitado: <input type="text"
-								class="form-control" th:field="*{habilitado}" /></label>
+						<!-- habilitado -->
+						<div class="col-auto form-el" th:if="*{id}">
+							<label>Habilitado: <select id="habilitado"
+								class="form-select" required th:field="*{habilitado}">
+									<option th:value=true th:text="SI"></option>
+									<option th:value=false th:text="NO"></option>
+							</select>
+							</label>
+							<small></small>
 						</div>
 
+						<!-- direccion -->
+						<div class="col-auto form-el">
+							<label>Dirección: <input type="text" class="form-control"
+								th:field="*{direccion}" required maxlength=40 /></label>
+							<small></small>
+						</div>
+						
 					</div>
 
-					<div class="col-auto">
-						<label>Dirección: <input type="text" class="form-control"
-							th:field="*{direccion}" required/></label>
-					</div>
+
 
 
 					<div class="buttons">
@@ -103,5 +134,6 @@
 		</div>
 	</div>
 	<footer th:replace="layout/layout::footer"></footer>
+	<script th:replace="persona/js/scripts :: javascript"></script>
 </body>
 </html>

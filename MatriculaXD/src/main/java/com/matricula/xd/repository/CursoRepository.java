@@ -17,5 +17,6 @@ public interface CursoRepository extends CrudRepository<Curso, Long>  {
 	@Query("select c from Curso c where c.nombre=?1 and c.docente.id=?2")
 	Curso findByNombreAndDocenteId(String nombre, Long id);
 	
-	
+	@Query("select distinct(cm.id) from Matricula m JOIN m.cursosMatriculados cm where m.semestre=?1")
+	List<Long> fetchCursosIdsBySemestre(String semestre);
 }
