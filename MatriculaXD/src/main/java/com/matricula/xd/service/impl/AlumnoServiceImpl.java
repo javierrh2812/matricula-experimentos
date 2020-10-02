@@ -41,4 +41,21 @@ public class AlumnoServiceImpl implements IAlumnoService{
 		return alumnoRepository.fetchAlumnosByCursoAndCiclo(curso_id, ciclo);
 	}
 
+	@Override
+	public Boolean existeAlumnoConDni(String dni) {
+		if (alumnoRepository.findByDni(dni).isEmpty()) return false;
+		else return true;
+	}
+
+	@Override
+	public List<Alumno> findByNombreOrApellidoLike(String term) {
+		String newTerm = '%'+term+'%';
+		return alumnoRepository.findByNombreOrApellidoLike(newTerm);
+	}
+
+	@Override
+	public List<Alumno> findAllAlumnosHabilitadosySinMatricula() {
+		return alumnoRepository.findAllByAlumnosHabilitadosySinMatricula();
+	}
+
 }

@@ -41,7 +41,23 @@ public class DocenteServiceImpl implements IDocenteService{
 	public List<Docente> fetchDocentesByCursoHabilitado(String curso) {
 		return docenteRepository.fetchDocentesByCursoAndIsHabilitado(curso);
 	}
-	
+
+	@Override
+	public Boolean existeDocenteConDni(String dni) {
+		if (docenteRepository.findByDni(dni).isEmpty()) return false;
+		else return true;
+	}
+
+	@Override
+	public List<Docente> findByNombreOrApellidoLike(String term) {
+		String newTerm = '%'+term+'%';
+		return docenteRepository.findByNombreOrApellidoLike(newTerm);
+	}
+
+	@Override
+	public List<Docente> findAllByDocenteHabilitado() {
+		return docenteRepository.findByHabilitado(true);
+	}
 
 
 }

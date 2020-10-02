@@ -26,19 +26,22 @@
 						<div class="col-auto form-el">
 							<label>Nombre: <input id="nombre" type="text"
 								class="form-control" th:field="*{nombre}" required
-								pattern="[A-Za-z ]{1,}" maxlength="20" /></label>
-								<small></small>
+								pattern="[A-Za-z ]{1,}" maxlength="20"
+								placeholder="Ingresa tu nombre"
+								title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
+							<small></small>
 						</div>
 						<!-- APELLIDO -->
 						<div class="col-auto form-el">
 							<label>Apellido: <input id="apellido" type="text"
 								class="form-control" th:field="*{apellido}" required
-								pattern="[A-Za-z ]{1,}" maxlength="20" /></label>
-								<small></small>
+								pattern="[A-Za-z ]{1,}" maxlength="20"
+								placeholder="Ingresa tu apellido"
+								title="Ingresar un apellido válido. Solo letras y como máximo 20 caracteres" /></label>
+							<small></small>
 						</div>
-						
-					</div>
 
+					</div>
 
 
 					<div class="row">
@@ -46,10 +49,14 @@
 						<div class="col-auto form-el">
 							<label>DNI: <input id="dni" type="text"
 								class="form-control" th:field="*{dni}" required
-								pattern="[0-9]{8}" /></label>
-								<small></small>
+								pattern="[0-9]{8}" placeholder="Ingresa tu DNI"
+								title="Ingresar un DNI válido. Solo 8 dígitos numéricos" />
+							</label> 
 						</div>
+
+
 						<!-- SEXO -->
+						
 						<div class="col-auto form-el">
 							<label>Sexo: <select id="sexo" class="form-select"
 								required th:field="*{sexo}">
@@ -57,44 +64,39 @@
 									<option th:value="M" th:text="Masculino"></option>
 									<option th:value="F" th:text="Femenino"></option>
 							</select>
-							</label>
-							<small></small>
+							</label> <small></small>
 						</div>
 					</div>
-
-
-
-
 
 					<div class="row">
 						<!-- telefono -->
 						<div class="col-auto form-el">
 							<label>Teléfono: <input id="telefono" type="text"
 								class="form-control" th:field="*{telefono}" required
-								pattern="[0-9]{9}" /></label>
-								<small></small>
+								pattern="[0-9]{9}" placeholder="Ingrese el teléfono"
+								title="Ingresar un teléfono válido. Solo 9 dígitos numéricos" /></label>
+							<small></small>
 						</div>
 						<!-- correo -->
+
 						<div class="col-auto form-el">
 							<label>Correo: <input id="correo" type="email" required
-								class="form-control" th:field="*{correo}" /></label>
-								<small></small>
+								class="form-control" th:field="*{correo}"
+								placeholder="Ingresar el correo"
+								title="Ingresar un correo válido." /></label> <small></small>
 						</div>
 					</div>
 
 
-
-
-
 					<div class="row">
-						
+
 						<!-- fecnacimiento -->
 						<div class="col-auto form-el">
 							<label>Fecha de Nacimiento: <input id="fecNacimiento"
 								type="date" class="form-control" th:field="*{fecNacimiento}"
-								required /></label>
-								<small></small>
+								required /></label> <small></small>
 						</div>
+
 
 						<!-- habilitado -->
 						<div class="col-auto form-el" th:if="*{id}">
@@ -103,17 +105,15 @@
 									<option th:value=true th:text="SI"></option>
 									<option th:value=false th:text="NO"></option>
 							</select>
-							</label>
-							<small></small>
+							</label> <small></small>
 						</div>
 
 						<!-- direccion -->
 						<div class="col-auto form-el">
 							<label>Dirección: <input type="text" class="form-control"
-								th:field="*{direccion}" required maxlength=40 /></label>
-							<small></small>
+								th:field="*{direccion}" required maxlength=40 /></label> <small></small>
 						</div>
-						
+
 					</div>
 
 
@@ -123,9 +123,10 @@
 						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
 						<button class="btn btn-secondary" th:text="Regresar"
 							onclick="history.back()"></button>
+						<!-- 
 						<a class="btn btn-danger" type="button" th:text="Eliminar"
 							th:if="*{id}" th:href="@{eliminar}"
-							onclick="return confirm('Está seguro de eliminar?')"></a>
+							onclick="return confirm('Está seguro de eliminar?')"></a>-->
 					</div>
 				</form>
 
@@ -134,6 +135,16 @@
 		</div>
 	</div>
 	<footer th:replace="layout/layout::footer"></footer>
-	<script th:replace="persona/js/scripts :: javascript"></script>
+	<script>
+	if(document.title.includes("Inform")){
+		
+		document.getElementById("dni").readOnly=true;
+		document.getElementById("sexo").readOnly=true;
+		document.getElementById("correo").readOnly=true;
+		document.getElementById("fecNacimiento").readOnly=true;
+	}
+	
+	</script>	
+	
 </body>
 </html>

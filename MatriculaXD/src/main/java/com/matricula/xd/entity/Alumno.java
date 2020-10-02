@@ -25,7 +25,7 @@ public @Data class Alumno {
 	private Long id;
 	
 	@NotBlank(message = "El nombre no puede estar vacío")
-	@Column(name = "nombre", length = 20)
+	@Column(name = "nombre", nullable=false, length = 20)
 	private String nombre;
 	
 	@Column(name = "apellido", nullable = false, length = 20)
@@ -57,4 +57,8 @@ public @Data class Alumno {
 	
 	@Column()
 	private Boolean matriculado=false; 
+	
+	public String getNombreCompleto() {
+		return nombre +" "+apellido;
+	}
 }

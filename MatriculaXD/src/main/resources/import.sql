@@ -10,7 +10,7 @@ INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimien
 INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado, matriculado) VALUES ('Edgar', 	'Mendoza', 	'12312329', 'M', '999458775', 'edgarmendoza@gmail.com', '2000-10-30', 	'Av. Los Chupetines, Trujillo',1,0);
 INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado, matriculado) VALUES ('Jonathan', 	'Salizar', 	'12312330', 'M', '999368774', 'julgo90@gmail.com', 	'2000-10-30', 	'Av. Mall del Sur , SJM',1,0);
 INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado, matriculado) VALUES ('Lorem Ipsum','Dolor Sit','12312331','F', '99912377', 'loremipsum@gmail.com', 	'2000-10-30', 	'Av. Lorem Ipsum Dolot',	1,0);
-INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado, matriculado) VALUES ('Albertano', 'Ángeles',	'12312332','M',		'912388776', 'albertano@gmail.com', '2000-10-30', 	'Av. Televisa Ga. 123',		1,0);
+INSERT INTO alumnos (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado, matriculado) VALUES ('Alberto', 'Ángeles',	'12312332','M',		'912388776', 'albertano@gmail.com', '2000-10-30', 	'Av. Televisa Ga. 123',		1,0);
 
 
 INSERT INTO docentes (nombre, apellido, dni, sexo, telefono, correo, fec_nacimiento, direccion, habilitado) VALUES ('John', 'Doe', 		'99887766', 'M','999888888', 'jdoe@gmail.com', '1978-10-30', 'Av. El Bingo',1);
@@ -62,3 +62,62 @@ INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id)
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,2);
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,3);
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (4,8);
+
+
+
+
+
+
+
+
+
+INSERT INTO matriculas(alumno_id, semestre) VALUES (1,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (2,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (3,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (4,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (5,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (6,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (7,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (8,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (9,'2020-2');
+INSERT INTO matriculas(alumno_id, semestre) VALUES (10,'2020-2');
+
+UPDATE alumnos SET matriculado=true WHERE id BETWEEN 1 and 10;
+
+
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (11,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (11,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (11,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (12,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (12,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (12,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (13,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (13,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (13,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (14,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (14,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (14,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (15,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (15,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (15,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (16,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (16,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (16,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (17,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (17,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (17,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (18,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (18,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (18,8);
+
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,1);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,3);
+INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,8);

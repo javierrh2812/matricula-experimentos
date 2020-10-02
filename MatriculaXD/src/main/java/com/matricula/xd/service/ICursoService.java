@@ -12,4 +12,10 @@ public interface ICursoService extends CrudService<Curso, Long> {
 	
 	List<Long> fetchCursosIdBySemestre(String semestre);
 	
+	Integer contarAlumnosMatriculadosPorCursoYSemestre(Long idcurso, String semestre);
+	
+	List<Curso> findByNombreLike(String term);
+	
+	Boolean existeCursoPorCodigo(String codigo);
+	
 }

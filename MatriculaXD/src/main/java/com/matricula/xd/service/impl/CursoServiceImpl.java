@@ -54,6 +54,23 @@ public class CursoServiceImpl implements ICursoService{
 		return cursoRepository.fetchCursosIdsBySemestre(semestre);
 	}
 
+	@Override
+	public Integer contarAlumnosMatriculadosPorCursoYSemestre(Long idcurso, String semestre) {
+		return cursoRepository.contarAlumnosMatriculadosPorCursoEnSemestre(idcurso, semestre);
+	}
+
+	@Override
+	public List<Curso> findByNombreLike(String term) {
+		String newTerm = '%'+term+'%';
+		return cursoRepository.findByNombreLike(newTerm);
+	}
+
+	@Override
+	public Boolean existeCursoPorCodigo(String codigo) {
+		if (cursoRepository.findByCodigo(codigo).isEmpty())return false;
+		else return true;
+	}
+
 	
 
 }

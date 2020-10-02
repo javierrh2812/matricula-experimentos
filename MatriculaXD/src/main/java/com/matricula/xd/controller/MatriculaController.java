@@ -28,7 +28,6 @@ import com.matricula.xd.service.IMatriculaService;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @Controller
 @SessionAttributes("matricula")
@@ -37,13 +36,13 @@ public class MatriculaController {
 
 	@Autowired
 	private IMatriculaService matriculaService;
-	
+
 	@Autowired
 	private IAlumnoService alumnoService;
-	
+
 	@Autowired
 	private ICursoService cursoService;
-	
+
 	// LISTAR
 	@GetMapping("/")
 	public String list(Model model) {
@@ -60,11 +59,12 @@ public class MatriculaController {
 			Optional<Matricula> matricula = matriculaService.findById(id);
 
 			if (!matricula.isPresent()) {
-				model.addAttribute("info", "Matricula no existe");
-				return "redirect:/matricula";
+				model.addAttribute("warning", "Matricula no existe");
+				return "redirect:/matricula/";
 			} else {
 				model.addAttribute("titulo", "Información de Matricula");
 				model.addAttribute("matricula", matricula.get());
+				model.addAttribute("nombre", matricula.get().getAlumno().getNombreCompleto());
 			}
 
 		} catch (Exception e) {
@@ -80,42 +80,50 @@ public class MatriculaController {
 
 		Matricula matricula = new Matricula();
 		model.addAttribute("matricula", matricula);
-		model.addAttribute("alumnos",  alumnoService.findAll());
-		log.info(cursoService.findCursosHabilitados().toString());
-		model.addAttribute("cursos",  cursoService.findCursosHabilitados());
+		model.addAttribute("alumnos", alumnoService.findAllAlumnosHabilitadosySinMatricula());
+		model.addAttribute("cursos", cursoService.findCursosHabilitados());
 		model.addAttribute("titulo", "Nueva Matricula");
 		return "matricula/form";
 	}
 
-	
-	
-	
 	// GUARDAR FORM
 	@PostMapping(value = "/guardar")
-	public String saveAlumno(@Valid Matricula matricula, BindingResult result, 
-			@RequestParam(value="cursos[]") String[] cursos,
-			@RequestParam(value="docentes[]") Long[] docentes,
-			Model model, RedirectAttributes flash,
-			SessionStatus status) {
+	public String saveAlumno(@Valid Matricula matricula, BindingResult result,
+			@RequestParam(value = "cursos[]", required = false) String[] cursos, @RequestParam(value = "docentes[]", required = false) Long[] docentes,
+			Model model, RedirectAttributes flash, SessionStatus status) {
+		if (docentes == null) {
+			flash.addFlashAttribute("warning", "Error en el registro. No eligió cursos ni docentes");
+			return "redirect:/matriculas/";
+		}
 		try {
 			if (result.hasErrors()) {
-				model.addAttribute("titulo", (matricula.getId() != null)?"Editar Matricula":"Nueva Matricula");
+				model.addAttribute("titulo", (matricula.getId() != null) ? "Editar Matricula" : "Nueva Matricula");
 				return "matricula/form";
 			}
-			String mensajeFlash = (matricula.getId() != null) ? "Matricula editada" : "Matricula Registrado";
+			String mensajeFlash = (matricula.getId() != null) ? "La matricula de editó exitosamente"
+					: "La matricula se registró exitosamente";
 
-			//smatricula.setFechaMatricula(new Date());
+			// smatricula.setFechaMatricula(new Date());
 			List<Curso> cursosMatriculados = new ArrayList<Curso>();
-			for (int i = 0 ; i< docentes.length; i++) {
-				cursosMatriculados
-					.add(cursoService.fetchByNombreAndDocenteId(cursos[i], docentes[i]));
+			for (int i = 0; i < docentes.length; i++) {
+				Curso curso = cursoService.fetchByNombreAndDocenteId(cursos[i], docentes[i]);
+				Integer matriculados = cursoService.contarAlumnosMatriculadosPorCursoYSemestre(curso.getId(), "2020-2");
+				log.info("Alumnos matriculados en el curso " + curso.getNombre() + "->" + matriculados);
+				if (matriculados < 10)
+					cursosMatriculados.add(curso);
+				else {
+					flash.addFlashAttribute("warning", "Error en el registro. El curso tiene 10 alumnos como máximo ");
+					return "redirect:/matriculas/";
+				}
 			}
-			matricula.setCursosMatriculados(cursosMatriculados);	
+			matricula.setCursosMatriculados(cursosMatriculados);
+			matricula.getAlumno().setMatriculado(true);
 			matriculaService.save(matricula);
-			
+
+			log.info(matricula.getAlumno().toString());
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
-			
+
 		} catch (Exception e) {
 			model.addAttribute("info", e.getMessage());
 			return "matricula/form";
@@ -123,8 +131,7 @@ public class MatriculaController {
 		return "redirect:/matriculas/";
 	}
 
-	
-	//ELIMINAR
+	// ELIMINAR
 	@GetMapping("/{id}/eliminar")
 	public String delete(Model model, @PathVariable(name = "id") Long id) {
 		try {
@@ -136,7 +143,7 @@ public class MatriculaController {
 		} catch (Exception e) {
 			model.addAttribute("error", "Error: " + e.getMessage());
 		}
-		return "redirect:/matriculas";
+		return "redirect:/matriculas/";
 	}
 
 }

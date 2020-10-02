@@ -10,54 +10,74 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			
+
 			<nav th:replace="layout/layout::sidebar"></nav>
-			
+
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
 				<h1 th:text="${titulo}">INFO DE CURSO</h1>
 
 				<form th:object="${curso}" th:action="${action}" th:method="POST">
 					<div>
-						<label>Codigo <input type="text" th:field="*{codigo}" /></label>
+						<label>Codigo
+						
+						<input th:if="not *{id}"
+							class="form-control" pattern="[0-9]{5}" required
+							placeholder="Ingrese el código"
+							title="Ingresar un código válido. Solo números de 5 dígitos"
+							type="text" th:field="*{codigo}" /> 
+							
+						<input th:if="*{id}" class="form-control"
+							readonly th:field="*{codigo}" />
+							
+							</label> 
 					</div>
 
 					<div>
-						<label>Nombre: <input type="text" th:field="*{nombre}" /></label>
+						<label>Nombre: <input class="form-control" maxlength=30
+							required placeholder="Ingrese el nombre de curso"
+							title="Ingresar un nombre valido Maximo 30 caracteres"
+							type="text" th:field="*{nombre}" /></label>
 					</div>
 
 					<div th:if="${docentes}">
-						<label> Docente: <select name="docente"
-							th:field="*{docente}">
+						<label> Docente: <select class="form-select"
+							name="docente" th:field="*{docente}">
 								<option th:each="x : ${docentes}" th:value="${x.id}"
 									th:text="${x.nombre + ' ' + x.apellido}"></option>
 						</select>
 						</label>
 					</div>
 
-					<div>
-						<label>Habilitado: <select th:field="*{habilitado}">
+					<div th:if="*{id}">
+						<label>Habilitado: <select class="form-select" th:field="*{habilitado}">
 								<option th:value=true th:text="SI"></option>
 								<option th:value=false th:text="NO"></option>
 						</select>
 						</label>
 					</div>
 
-					<div>
-						<button type="submit" th:text="Aceptar"></button>
-						<button th:text="Regresar" onclick="history.back()"></button>
-						<a type="button" th:text="Eliminar" th:if="*{id}"
-							th:href="@{eliminar}"
-							onclick="return confirm('�Est� seguro de eliminar?')"></a>
+					<div class="buttons">
+						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
+						<button class="btn btn-secondary" th:text="Regresar"
+							onclick="history.back()"></button>
+
 					</div>
 				</form>
 
 			</main>
-		
+
 		</div>
 	</div>
-	
+
 	<footer th:replace="layout/layout::footer"></footer>
+	<script>
+	for (let input of document.querySelectorAll("input")){
+		input.onchange=()=>{
+			input.value = input.value.trim();
+		}
+	}
+	</script>
 </body>
 
 </html>

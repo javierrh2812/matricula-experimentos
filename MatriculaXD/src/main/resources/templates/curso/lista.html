@@ -14,30 +14,43 @@
 				<h1 th:text="${titulo}">LISTA</h1>
 
 				<a type="button" th:href="@{nuevo}">Nuevo Curso</a>
+				<div class="row">
+					<label class="col-auto"> Buscar: </label><input id="busqueda"
+						class="form-control" type="text" placeholder="Ingrese el nombre"
+						style="width: 350px" />
+				</div>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Código</th>
-							<th>Nombre de Curso</th>
-							<th>Info</th>
-						</tr>
-					</thead>
+				<div id="replaceLista">
 
-					<tbody>
+					<h4 th:unless="${cursos}">No se encontraron resultados</h4>
 
-						<tr th:each="x : ${cursos}">
-							<td th:text="${x.codigo}">Nombre</td>
-							<td th:text="${x.nombre}">Apellido</td>
-							<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
-						</tr>
-					</tbody>
-				</table>
+					<table th:fragment="listaCursos" class="table">
+						<thead>
+							<tr>
+								<th>Código</th>
+								<th>Nombre de Curso</th>
+								<th>Docente</th>
+								<th>Info</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="x : ${cursos}">
+								<td th:text="${x.codigo}">Nombre</td>
+								<td th:text="${x.nombre}">Apellido</td>
+								<td th:text="${x.docente.getNombreCompleto()}"></td>
+								<td><a th:href="@{{id}/ver(id=${x.id})}">Info</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</main>
 		</div>
 	</div>
-	
+
 	<footer th:replace="layout/layout::footer"></footer>
+	<script th:replace="curso/js/scripts::javascript"></script>
 </body>
 
 </html>

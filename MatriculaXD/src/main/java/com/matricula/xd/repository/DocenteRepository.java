@@ -12,4 +12,13 @@ import com.matricula.xd.entity.Docente;
 public interface DocenteRepository extends CrudRepository<Docente, Long>  {
 	@Query("select d from Docente d join Curso c on d.id = c.docente.id where c.nombre=?1")
 	List<Docente> fetchDocentesByCursoAndIsHabilitado(String curso);
+	
+	List<Docente> findByDni(String dni);
+	
+	@Query("select a from Docente a where LOWER(a.nombre) like LOWER(?1) or LOWER(a.apellido) like LOWER(?1)")
+	List<Docente> findByNombreOrApellidoLike(String term);
+	
+	List<Docente> findByHabilitado(Boolean habilitado);
+	
+	
 }

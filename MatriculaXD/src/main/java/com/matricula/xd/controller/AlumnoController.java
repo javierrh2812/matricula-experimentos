@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.matricula.xd.entity.Alumno;
 import com.matricula.xd.service.IAlumnoService;
 import com.matricula.xd.service.ICursoService;
+import com.matricula.xd.service.impl.AlumnoServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,14 +50,14 @@ public class AlumnoController {
 
 	// VER INFO
 	@GetMapping("/{id}/ver")
-	public String detailsPAlumno(@PathVariable(value = "id") Long id, Model model) {
+	public String detailsPAlumno(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
 		try {
 			Optional<Alumno> alumno = alumnoService.findById(id);
 
 			if (!alumno.isPresent()) {
-				model.addAttribute("info", "Alumno no existe");
-				return "redirect:/alumnos";
+				flash.addFlashAttribute("warning", "Alumno no existe");
+				return "redirect:/alumnos/";
 			} else {
 				model.addAttribute("titulo", "Información de Alumno");
 				model.addAttribute("persona", alumno.get());
@@ -89,22 +90,32 @@ public class AlumnoController {
 	@PostMapping(value = "/guardar")
 	public String saveAlumno(@Valid Alumno alumno, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
-
+		log.info("intentando guardar alumno:" + alumno.toString());
 		try {
 			if (result.hasErrors()) {
 				model.addAttribute("titulo", "Editar Alumno");
+				model.addAttribute("persona", alumno);
+				
 				return "persona/form";
 			}
-
-			String mensajeFlash = (alumno.getId() != null) ? "Alumno editado" : "Alumno Registrado";
-
+			
+			String mensajeFlash="";
+			if (alumno.getId()==null) { 
+				mensajeFlash = "El alumno se registró exitosamente";
+			}
+			else {
+				mensajeFlash = "El alumno se modificó exitosamente";		
+			}
+			flash.addFlashAttribute("success", mensajeFlash);
 			alumnoService.save(alumno);
 			status.setComplete();
-			flash.addFlashAttribute("success", mensajeFlash);
+			
 		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
 			return "persona/form";
  
 		}
+
 		return "redirect:/alumnos/";
 	}
 
@@ -116,12 +127,14 @@ public class AlumnoController {
 			Optional<Alumno> alumno = alumnoService.findById(id);
 			if (alumno.isPresent()) {
 				alumno.get().setHabilitado(false);
+				log.info(alumno.get().toString());
+				
 			}
 
 		} catch (Exception e) {
 			model.addAttribute("error", "Ha ocurrido un error");
 		}
-		return "redirect:/alumnos";
+		return "redirect:/alumnos/";
 	}
 	
 	
@@ -145,5 +158,15 @@ public class AlumnoController {
 
 		return "matricula/templateReporteAlumnos :: Lista";
 	}
+	
+	@GetMapping(value={"api/busqueda/","/api/busqueda/{term}"})
+	public String getBusqueda(Model model, @PathVariable(required=false) String term) {
+		
+		if(term!=null)model.addAttribute("personas",alumnoService.findByNombreOrApellidoLike(term) );
+		else model.addAttribute("personas", alumnoService.findAll());
+		log.info("buscando alumnos: " + term);
+		return "persona/lista::listaPersonas";
+	}
+	
 
 }

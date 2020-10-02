@@ -18,18 +18,21 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.matricula.xd.entity.Curso;
+import com.matricula.xd.entity.Docente;
 import com.matricula.xd.service.ICursoService;
 import com.matricula.xd.service.IDocenteService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @SessionAttributes("curso")
 @RequestMapping("/cursos")
 public class CursoController {
-	
+
 	@Autowired
 	private ICursoService cursoService;
-	
+
 	@Autowired
 	private IDocenteService docenteService;
 
@@ -49,13 +52,13 @@ public class CursoController {
 		try {
 			Optional<Curso> curso = cursoService.findById(id);
 
-			if (!curso.isPresent()) {
-				model.addAttribute("info", "Docente no existe");
+			if (!curso.isPresent()) {	
+				model.addAttribute("info", "Curso no existe");
 				return "redirect:/cursos/";
 			} else {
 				model.addAttribute("titulo", "Información de Curso");
 				model.addAttribute("curso", curso.get());
-				model.addAttribute("docentes", docenteService.findAll());
+				model.addAttribute("docentes", docenteService.findAllByDocenteHabilitado());
 				model.addAttribute("action", "/cursos/guardar");
 			}
 
@@ -66,21 +69,27 @@ public class CursoController {
 		return "/curso/form";
 	}
 
-	// NUEVO 
+	// NUEVO
 	@GetMapping(value = "/nuevo")
-	public String nuevo(Model model) {
-
+	public String nuevo(Model model, RedirectAttributes flash) {
+		List<Docente> docenteshabilitados = docenteService.findAllByDocenteHabilitado();
+		if(!docenteshabilitados.isEmpty()) {
 		Curso curso = new Curso();
 		model.addAttribute("curso", curso);
 		model.addAttribute("titulo", "Nuevo Curso");
 		model.addAttribute("action", "/cursos/guardar");
-		model.addAttribute("docentes", docenteService.findAll());
+		model.addAttribute("docentes", docenteshabilitados);
 		
 		return "curso/form";
-	}
+		}
+		else {
+			flash.addFlashAttribute("warning", "No existen docentes, o docentes habilitados para crear un nuevo curso");
+			return "redirect:/cursos/";
+		}
+		
+		}
 
-	
-	// GUARDAR 
+	// GUARDAR
 	@PostMapping(value = "/guardar")
 	public String save(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
@@ -89,7 +98,7 @@ public class CursoController {
 			if (result.hasErrors()) {
 				return "curso/form";
 			}
-			String mensajeFlash = (curso.getId() != null) ? "Curso editado" : "Curso Registrado";
+			String mensajeFlash = (curso.getId() != null) ? "El curso se editó exitosamente " : "El Curso se registró exitosamente";
 			cursoService.save(curso);
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
@@ -100,8 +109,7 @@ public class CursoController {
 		return "redirect:/cursos/";
 	}
 
-	
-	//ELIMINAR
+	// ELIMINAR
 	@GetMapping("/{id}/eliminar")
 	public String delete(Model model, @PathVariable(name = "id") Long id) {
 		try {
@@ -114,6 +122,17 @@ public class CursoController {
 			model.addAttribute("error", "Ha ocurrido un error");
 		}
 		return "redirect:/cursos/";
+	}
+
+	@GetMapping(value = { "api/busqueda/", "/api/busqueda/{term}" })
+	public String getBusqueda(Model model, @PathVariable(required = false) String term) {
+
+		if (term != null)
+			model.addAttribute("cursos", cursoService.findByNombreLike(term));
+		else
+			model.addAttribute("cursos", cursoService.findAll());
+		log.info("buscando cursos: " + term);
+		return "curso/lista::listaCursos";
 	}
 
 }

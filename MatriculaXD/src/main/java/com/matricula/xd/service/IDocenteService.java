@@ -8,4 +8,9 @@ public interface IDocenteService extends CrudService<Docente, Long> {
 	
 	List<Docente> fetchDocentesByCursoHabilitado(String curso);
 	
+	Boolean existeDocenteConDni(String dni);
+	
+	List<Docente> findByNombreOrApellidoLike(String term);
+	
+	List<Docente> findAllByDocenteHabilitado();
 }

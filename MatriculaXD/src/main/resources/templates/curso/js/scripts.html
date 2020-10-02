@@ -33,20 +33,12 @@
 		let url="", term="";
 		inputBusqueda.onchange= ()=> {
 			
-			term = inputBusqueda.value.trim();
-			if (document.title == "Lista de alumnos"){
-				url = domain+ `alumnos/api/busqueda/${term}`
-			} 
-			if (document.title == "Lista de docentes"){
-				url = domain+ `docentes/api/busqueda/${term}`
-			} 
+			term=inputBusqueda.value.trim();
+			url = domain+ `cursos/api/busqueda/${term}`
+			
 			
 			load(url, document.getElementById("replaceLista"))
 		}
-		
-		
-		
-
 
 	})
 	

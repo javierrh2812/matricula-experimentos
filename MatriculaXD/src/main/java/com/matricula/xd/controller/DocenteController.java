@@ -88,8 +88,8 @@ public class DocenteController {
 			if (result.hasErrors()) {				
 				return "persona/form";
 			}
-			String mensajeFlash = (docente.getId() != null) ? "Docente editado" : "Docente Registrado";		
-			log.info(docente.toString());
+			String mensajeFlash = (docente.getId() != null) ? "El docente se editó exitosamente" : "El alumno se registró exitosamente";		
+			log.info("docente a editar o guardar: " +docente.toString());
 			docenteService.save(docente);
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
@@ -118,6 +118,14 @@ public class DocenteController {
 
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/api")
 	public String getDocentesPorCurso(@RequestParam(name="curso") String curso, Model model) {
 		
@@ -125,5 +133,16 @@ public class DocenteController {
 		log.info(docenteService.fetchDocentesByCursoHabilitado(curso).toString());
 		model.addAttribute("docentes", docenteService.fetchDocentesByCursoHabilitado(curso));
 		return "matricula/form :: #docentesDiv";
+	}
+	
+	
+	
+	@GetMapping(value={"api/busqueda/","/api/busqueda/{term}"})
+	public String getBusqueda(Model model, @PathVariable(required=false) String term) {
+		
+		if(term!=null)model.addAttribute("personas",docenteService.findByNombreOrApellidoLike(term) );
+		else model.addAttribute("personas", docenteService.findAll());
+		log.info("buscando docentes: " + term);
+		return "persona/lista::listaPersonas";
 	}
 }

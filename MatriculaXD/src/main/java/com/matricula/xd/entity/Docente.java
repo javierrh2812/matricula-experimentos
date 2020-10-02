@@ -58,4 +58,9 @@ public @Data class Docente {
 	
 	@Column(nullable=false)
 	private Boolean habilitado=true; 
+	
+	
+	public String getNombreCompleto() {
+		return nombre +" "+apellido;
+	}
 }

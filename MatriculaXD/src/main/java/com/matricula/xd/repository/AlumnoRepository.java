@@ -10,15 +10,7 @@ import com.matricula.xd.entity.Alumno;
 
 @Repository
 public interface AlumnoRepository extends CrudRepository<Alumno, Long>  {
-	/*
-	select * from alumnos as a 
-	 inner join matriculas as m  on a.id = m.alumno_id  
-	 inner join matriculas_cursos_matriculados as cm on m.id = cm.matricula_id
-	 inner join cursos as c on cm.cursos_matriculados_id = c.id
-	 where m.semestre='2020-2' and c.id=2
-	
-	
-	*/
+
 	
 	@Query("select a from Alumno a "
 			+ "join Matricula m on a.id=m.alumno.id "
@@ -27,5 +19,12 @@ public interface AlumnoRepository extends CrudRepository<Alumno, Long>  {
 			+ "where m.semestre=?2 and c.id=?1")
 	List<Alumno> fetchAlumnosByCursoAndCiclo(Long idCurso, String ciclo);
 	
+	List<Alumno> findByDni(String dni);
+	
+	@Query("select a from Alumno a where LOWER(a.nombre) like LOWER(?1) or LOWER(a.apellido) like LOWER(?1)")
+	List<Alumno> findByNombreOrApellidoLike(String term1);
+	
+	@Query("select a from Alumno a where a.habilitado = true and a.matriculado=false")
+	List<Alumno> findAllByAlumnosHabilitadosySinMatricula();
 	
 }
