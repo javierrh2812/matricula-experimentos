@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
 <meta charset="UTF-8">
@@ -17,19 +19,27 @@
 
 	<header th:fragment="header">
 		<nav class="navbar navbar-dark bg-dark sticky-top p-0">
-			<a class="navbar-brand col-md-2 px-4" href="/">MATRICULAXD</a>
+			<a class="navbar-brand col-md-2 px-4" href="/">MATRICULAXD</a> 
 			<ul class="navbar-nav px-3">
-				<li class="nav-item text-nowrap"><a class="nav-link" href="#">Sign
-						out</a></li>
+
+				<li class="nav-item text-nowrap">
+					<form method="POST" th:action="@{/logout}">
+						<h6 sec:authentication="name" style="display:inline; color: white"></h6> <button class="btn btn-secondary" type="submit">Signout</button>
+					</form>
+				</li>
 			</ul>
 		</nav>
 
-<div id="mensajes" style="text-align:center">
-		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
-		<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
-</div>
+		<div id="mensajes" style="text-align: center">
+			<div class="alert alert-success" th:if="${success != null}"
+				th:text="${success}"></div>
+			<div class="alert alert-danger" th:if="${error != null}"
+				th:text="${error}"></div>
+			<div class="alert alert-warning" th:if="${warning != null}"
+				th:text="${warning}"></div>
+			<div class="alert alert-info" th:if="${info != null}"
+				th:text="${info}"></div>
+		</div>
 	</header>
 
 	<nav th:fragment="sidebar" id="sidebar"
@@ -68,10 +78,11 @@
 
 		<script src="/js/bootstrap.min.js"></script>
 
-		<script src="/js/scripts.js">	
+		<script src="/js/scripts.js">
+			
 		</script>
-		
-		
+	
+
 
 	</footer>
 

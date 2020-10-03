@@ -17,7 +17,7 @@
 
 				<h1 th:text="${titulo}"></h1>
 
-				<a type="button" th:href="@{nuevo}">Nueva matrícula</a>
+				<a type="button" th:href="@{nuevo}" sec:authorize="hasRole('ADMIN')">Nueva matrícula</a>
 
 
 
