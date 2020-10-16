@@ -22,9 +22,10 @@
 				
 					<h4 th:unless="${personas}">No se encontraron resultados</h4>
 
-					<table class="table" th:fragment="listaPersonas">
+					<table class="table">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Nombre</th>
 								<th>Apellido</th>
 								<th th:if="${esModuloAlumnos}">Correo</th>
@@ -34,9 +35,10 @@
 							</tr>
 						</thead>
 
-						<tbody>
+						<tbody id="listaPersonas" th:fragment="listaPersonas">
 
-							<tr th:each="x : ${personas}">
+							<tr th:each="x,i : ${personas}">
+								<td th:text=${i.count}></td>
 								<td th:text="${x.nombre}">Nombre</td>
 								<td th:text="${x.apellido}">Apellido</td>
 								<td th:if="${esModuloAlumnos}" th:text="${x.correo}">Correo</td>

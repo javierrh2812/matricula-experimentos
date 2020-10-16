@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head" />
+<body>
+	<header th:replace="layout/layout::header"></header>
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<nav th:replace="layout/layout::sidebar"></nav>
+
+
+
+			<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+				<h1 th:text="${titulo}"></h1>
+
+				<form id="form" th:object="${usuario}" action="/usuarios/guardar"
+					th:method="post">
+					<input type="hidden" th:field="*{id}" /> <input type="hidden"
+						th:field="*{password}" />
+
+
+					<div class="row">
+						<!-- NOMBRE -->
+						<div class="col-auto">
+							<label>Nombre: <input id="nombre" type="text"
+								class="form-control" th:field="*{nombre}" required
+								pattern="[A-Za-z ]{1,}" maxlength="20"
+								placeholder="Ingresar nombre"
+								title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
+							<small></small>
+						</div>
+						<!-- APELLIDO -->
+						<div class="col-auto">
+							<label>Apellido: <input id="apellido" type="text"
+								class="form-control" th:field="*{apellido}" required
+								pattern="[A-Za-z ]{1,}" maxlength="20"
+								placeholder="Ingresar apellido"
+								title="Ingresar un apellido válido. Solo letras y como máximo 20 caracteres" /></label>
+							<small></small>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-auto">
+							<label>Nombre de usuario:</label> <input type="text"
+								class="form-control" th:field="*{username}" required
+								pattern="^[A-Za-z0-9_]{4,15}$"
+								placeholder="Ingresar nombre de usuario"
+								title="El nombre de usuario debe tener entre 4 y 15 caracteres. Solo letras y números permitido" />
+						</div>
+
+						<div class="col-auto">
+							<label>Correo: </label> <input id="correo" type="email" required
+								class="form-control" th:field="*{correo}"
+								placeholder="Ingresar correo" title="Ingresar un correo válido." />
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div th:if="*{id}" class="col-auto">
+							<label>Password: </label> <input type="password"
+								class="form-control" name="pwd"
+								pattern="^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$" minlength="4"
+								maxlength="15"
+								title="La contraseña debe tener como mínimo 1 número y 1 letra, y debe tener entre 4 y 15 caracteres"
+								placeholder="Ingresar contraseña" />
+						</div>
+
+						<div th:unless="*{id}" class="col-auto">
+							<label>Password: </label> <input type="password"
+								class="form-control" name="pwd" required
+								pattern="^(?=.*\d)(?=.*[a-zA-Z])(?!.*\s).*$" minlength="4"
+								maxlength="15"
+								title="La contraseña debe tener como mínimo 1 número y 1 letra, y debe tener entre 4 y 15 caracteres"
+								placeholder="Ingresar contraseña" />
+						</div>
+					</div>
+
+
+					<div th:if="${roles}" class="row">
+						<div class="col-auto">
+							<label>ROL:</label> <select class="form-select" required
+								th:field="*{role}" name="role">
+								<option th:each="x : ${roles}" th:value="${x.id}"
+									th:text="${x.nombre}"></option>
+							</select>
+						</div>
+
+					</div>
+
+
+					<div class="buttons">
+						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
+						<button class="btn btn-secondary" th:text="Regresar"
+							onclick="history.back()"></button>
+					</div>
+				</form>
+
+			</main>
+
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout::footer"></footer>
+
+</body>
+</html>

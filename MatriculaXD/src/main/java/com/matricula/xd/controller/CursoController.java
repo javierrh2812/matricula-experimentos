@@ -124,15 +124,20 @@ public class CursoController {
 		return "redirect:/cursos/";
 	}
 
-	@GetMapping(value = { "api/busqueda/", "/api/busqueda/{term}" })
-	public String getBusqueda(Model model, @PathVariable(required = false) String term) {
 
-		if (term != null)
-			model.addAttribute("cursos", cursoService.findByNombreLike(term));
-		else
-			model.addAttribute("cursos", cursoService.findAll());
-		log.info("buscando cursos: " + term);
+	// FRAGMENTO
+
+	@GetMapping(value = { "/busqueda", "/busqueda/{term}" })
+	public String busquedaCursos(Model model, @PathVariable(required = false) String term) {
+		log.info("buscando cursos por termino: " + term);
+		if(term!=null)model.addAttribute("cursos",cursoService.findByNombreLike(term));
+		else model.addAttribute("cursos", cursoService.findAll());
 		return "curso/lista::listaCursos";
 	}
+
+
+
+
+
 
 }

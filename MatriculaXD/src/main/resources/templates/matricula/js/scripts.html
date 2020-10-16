@@ -1,47 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
+  <body>
+    <script type="text/javascript" th:fragment="scriptLista">
+      document.addEventListener("DOMContentLoaded", () => {
+        /**METODO PARA LISTAR ALUMNOS Y CURSOS DEL SEMESTRE**/
+        const semestreSelect = document.querySelector("#semestreSelect");
+        const replaceDiv = document.querySelector("div#replace");
 
-	<script type="text/javascript" th:fragment="javascript">
+        replaceDiv.innerHTML = "Elige un Semestre para ver el reporte.";
+        semestreSelect.onchange = () => {
+          let url = domain + "api/cursos?semestre=" + semestreSelect.value;
+          let cursosId = [];
+          let sem = semestreSelect.value;
 
-	
-	document.addEventListener("DOMContentLoaded", ()=>{
-		
-		let domain = "http://localhost:8080/"
+          fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+              cursosId = data;
+            })
+            .then(() => {
+              reporteSemestre(cursosId, semestreSelect.value, replaceDiv);
+            });
+        };
+      });
 
-			
-		function load(url, element)
-		{
-				fetch(url)
-				.then(res => res.text())
-				.then(data => { element.innerHTML=data	})
-				.catch(()=>{element.innerHTML="Error al obtener datos"})
-		}
+      const reporteSemestre = (cursosId, semestre, replaceDiv) => {
+        replaceDiv.innerHTML = `<hr/><h3>Periodo: ${semestre}</h3><hr/>`;
+        if (cursosId.length > 0) {
+          for (let i of cursosId)
+            replaceDiv.innerHTML += `<div id="curso${i}">CURSO${i}</div>`;
 
-		
-		for (let el of Array.from(document.querySelectorAll("input"))){
-			
-			el.onchange = () =>{
-				el.value= el.value.trim()
-			}
-		}		
+          for (let i of cursosId)
+            load(
+              `${domain}alumnos/api/${semestre}/${i}`,
+              document.getElementById(`curso${i}`),
+              () => {}
+            );
+        } else
+          replaceDiv.innerHTML += "No hay alumnos matriculados en el ciclo";
+      };
+    </script>
 
-		
-		
-		//PARA LISTA
-		const inputBusqueda = document.getElementById("busqueda")
-		let url="", term="";
-		inputBusqueda.onchange= ()=> {
-			
-			term=inputBusqueda.value.trim();
-			url = domain+ `cursos/api/busqueda/${term}`
-			
-			
-			load(url, document.getElementById("replaceLista"))
-		}
+    <script type="text/javascript" th:fragment="scriptForm">
+      document.addEventListener("DOMContentLoaded", () => {
+        const docentesDiv = document.querySelector("#docentesDiv");
+        const cursoSelect = document.querySelector("#cursoSelect");
+        const cursosTBody = document.querySelector("#cursosMatriculados");
+        const agregarBtn = document.getElementById("btnAgregar");
+        let docenteSelect = document.querySelector("#docenteSelect");
+        agregarBtn.addEventListener("click", (e) => e.preventDefault());
 
-	})
-	
-	</script>
-</body>
+        cursoSelect.onchange = () => {
+          let url = domain + "docentes/select?curso=" + cursoSelect.value;
+          load(url, docenteSelect, () => {
+            docenteSelect = document.querySelector("#docenteSelect");
+          });
+        };
+
+        agregarBtn.onclick = () => {
+          if (cursoSelect.value != "0" && docenteSelect.value != "0") {
+            if (!hasCurso())
+              cursosTBody.innerHTML += `<tr id="linea${
+                cursoSelect.selectedIndex
+              }">
+						<td id="curso${cursoSelect.selectedIndex}"><input name="cursos[]" value="${
+                cursoSelect.value
+              }"/></td>
+						<td class="d-none"><input type="hidden" value="${
+              docenteSelect.value
+            }"name="docentes[]" /></td>
+						<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
+						<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>
+						</tr>`;
+            else {
+              let el = "linea" + cursoSelect.selectedIndex;
+              document.getElementById(el).innerHTML = `<td id="curso${
+                cursoSelect.selectedIndex
+              }"><input name="cursos[]" readOnly value="${
+                cursoSelect.value
+              }"/></td>
+					<td class="d-none"><input type="hidden" value="${
+            docenteSelect.value
+          }"name="docentes[]" /></td>
+					<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
+					<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>`;
+            }
+          }
+        };
+
+        function hasCurso() {
+          for (let el of Array.from(
+            document.querySelectorAll("td[id*='curso']")
+          )) {
+            if (el.id === "curso" + cursoSelect.selectedIndex) return true;
+          }
+          return false;
+        }
+      });
+    </script>
+  </body>
 </html>

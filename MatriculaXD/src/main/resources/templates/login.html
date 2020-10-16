@@ -11,18 +11,19 @@
 	<div class="d-flex justify-content-center">
 
 		<div class="card" style="width: 18rem; margin-top: 50px">
-			<div class="card-header text-center">	
+			<div class="card-header text-center">
 				<h3>Inicia Sesión en MatriculaXD</h3>
 			</div>
 
 			<div class="card-body">
 				<form method="POST" th:action="@{/login}">
-					<label for="username">Username:</label>
-					<input class="form-control" type="text" name="username" id="username" /> <br /> 
-					
-					<label for="password">Password:</label> 
-					<input class="form-control" type="password" name="password" id="password" />
-					
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <label for="username">Username:</label>
+					<input class="form-control" type="text" name="username"
+						id="username" /> <br /> <label for="password">Password:</label>
+					<input class="form-control" type="password" name="password"
+						id="password" />
+
 					<hr />
 					<input class="btn btn-primary" type="submit" value="Login" />
 				</form>

@@ -9,6 +9,7 @@
 				<table class="table">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Nombre</th>
 							<th>Apellido</th>
 							<th>Correo</th>
@@ -19,7 +20,8 @@
 
 					<tbody>
 
-						<tr th:each="x : ${alumnos}">
+						<tr th:each="x, i : ${alumnos}">
+							<td th:text="${i.count}"></td>
 							<td th:text="${x.nombre}">Nombre</td>
 							<td th:text="${x.apellido}">Apellido</td>
 							<td th:text="${x.correo}">Correo</td>

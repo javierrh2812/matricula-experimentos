@@ -64,6 +64,15 @@
 				<li class="nav-item"><a class="nav-link" href="/matriculas/">
 						<i th:replace="layout/icons::calendar"></i> Matricula
 				</a></li>
+				
+				<hr>
+				
+				<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" href="/usuarios/">
+						<i th:replace="layout/icons::people"></i> Gestión de Usuarios
+				</a></li>
+				
+				<li class="nav-item" ><a class="nav-link" href="/micuenta/">
+						<i th:replace="layout/icons::people"></i> Mi cuenta</a></li>
 			</ul>
 
 		</div>
@@ -74,13 +83,45 @@
 
 
 	<footer th:fragment="footer">
+		<script type="text/javascript">
+		
+			function $(selector){
+				return document.querySelectorAll(selector)
+			}	
+		
+			let domain = "http://localhost:8080/";
+			
+			function load(url, element, fn)
+			{
+				console.log("request a url: "+url)
+				fetch(url)
+				.then(res => res.text())
+				.then(data => { element.innerHTML=data	})
+				.then( () => {fn()})
+				.catch(()=>{element.innerHTML="Error al obtener datos"})
+			}
 
+			function load(url, element)
+			{
+				console.log("request an url: "+url)
+				fetch(url)
+				.then(res => res.text())
+				.then(data => { element.innerHTML=data	})
+				.catch(()=>{element.innerHTML="Error al obtener datos"})
+			}
 
-		<script src="/js/bootstrap.min.js"></script>
-
-		<script src="/js/scripts.js">
+			document.addEventListener("DOMContentLoaded", ()=>{
+				for (let el of Array.from($("input"))) {
+					el.onchange = () =>{
+						el.value= el.value.trim()
+					}
+				}
+			})
 			
 		</script>
+
+		<script src="/js/bootstrap.min.js"></script>
+		
 	
 
 

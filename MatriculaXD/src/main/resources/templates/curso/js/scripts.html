@@ -7,39 +7,13 @@
 	
 	document.addEventListener("DOMContentLoaded", ()=>{
 		
-		let domain = "http://localhost:8080/"
-
-			
-		function load(url, element)
-		{
-				fetch(url)
-				.then(res => res.text())
-				.then(data => { element.innerHTML=data	})
-				.catch(()=>{element.innerHTML="Error al obtener datos"})
-		}
-
-		
-		for (let el of Array.from(document.querySelectorAll("input"))){
-			
-			el.onchange = () =>{
-				el.value= el.value.trim()
-			}
-		}		
-
-		
-		
-		//PARA LISTA
 		const inputBusqueda = document.getElementById("busqueda")
 		let url="", term="";
 		inputBusqueda.onchange= ()=> {
-			
 			term=inputBusqueda.value.trim();
-			url = domain+ `cursos/api/busqueda/${term}`
-			
-			
-			load(url, document.getElementById("replaceLista"))
+			url = domain+ `cursos/busqueda/${term}`	
+			load(url, document.getElementById("listaCursos"), ()=>{})
 		}
-
 	})
 	
 	</script>

@@ -20,14 +20,13 @@
 					th:method="post">
 
 					<input type="hidden" th:field="*{id}" />
-
 					<div class="row">
 						<!-- NOMBRE -->
 						<div class="col-auto form-el">
 							<label>Nombre: <input id="nombre" type="text"
 								class="form-control" th:field="*{nombre}" required
 								pattern="[A-Za-z ]{1,}" maxlength="20"
-								placeholder="Ingresa tu nombre"
+								placeholder="Ingresar nombre"
 								title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
 							<small></small>
 						</div>
@@ -36,7 +35,7 @@
 							<label>Apellido: <input id="apellido" type="text"
 								class="form-control" th:field="*{apellido}" required
 								pattern="[A-Za-z ]{1,}" maxlength="20"
-								placeholder="Ingresa tu apellido"
+								placeholder="Ingresar apellido"
 								title="Ingresar un apellido válido. Solo letras y como máximo 20 caracteres" /></label>
 							<small></small>
 						</div>
@@ -49,7 +48,7 @@
 						<div class="col-auto form-el">
 							<label>DNI: <input id="dni" type="text"
 								class="form-control" th:field="*{dni}" required
-								pattern="[0-9]{8}" placeholder="Ingresa tu DNI"
+								pattern="[0-9]{8}" placeholder="Ingresar DNI"
 								title="Ingresar un DNI válido. Solo 8 dígitos numéricos" />
 							</label> 
 						</div>
@@ -64,7 +63,7 @@
 									<option th:value="M" th:text="Masculino"></option>
 									<option th:value="F" th:text="Femenino"></option>
 							</select>
-							</label> <small></small>
+							</label>
 						</div>
 					</div>
 
@@ -79,7 +78,7 @@
 						</div>
 						<!-- correo -->
 
-						<div class="col-auto form-el">
+						<div class="col-auto">
 							<label>Correo: <input id="correo" type="email" required
 								class="form-control" th:field="*{correo}"
 								placeholder="Ingresar el correo"
@@ -91,7 +90,7 @@
 					<div class="row">
 
 						<!-- fecnacimiento -->
-						<div class="col-auto form-el">
+						<div class="col-auto">
 							<label>Fecha de Nacimiento: <input id="fecNacimiento"
 								type="date" class="form-control" th:field="*{fecNacimiento}"
 								required /></label> <small></small>
@@ -105,13 +104,17 @@
 									<option th:value=true th:text="SI"></option>
 									<option th:value=false th:text="NO"></option>
 							</select>
-							</label> <small></small>
+							</label>
 						</div>
 
 						<!-- direccion -->
 						<div class="col-auto form-el">
-							<label>Dirección: <input type="text" class="form-control"
-								th:field="*{direccion}" required maxlength=40 /></label> <small></small>
+							<label>Dirección: </label>
+							
+							<input type="text" class="form-control"
+								placeholder="Ingresar dirección"
+								title="Como máximo 40 caracteres"
+								th:field="*{direccion}" required maxlength=40 />
 						</div>
 
 					</div>

@@ -121,3 +121,12 @@ INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id)
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,1);
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,3);
 INSERT INTO matriculas_cursos_matriculados(matricula_id, cursos_matriculados_id) VALUES (19,8);
+
+
+
+
+
+INSERT INTO roles(nombre) VALUES ('ROLE_ADMIN');
+INSERT INTO roleS(nombre) VALUES ('ROLE_USER');
+
+INSERT INTO usuarios(role_id, nombre,apellido,correo,username, password) VALUES (1,'Nombre', 'Apellido', 'correo@dominio.com','admin', '$2a$10$9vXMdLNwaeBRV4Ys0TEcm.LRnIBWrvFxY5nNV4Uc8xkY8sLUgNQFa');

@@ -1,7 +1,6 @@
 package com.matricula.xd.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,10 +42,14 @@ public class MatriculaController {
 	@Autowired
 	private ICursoService cursoService;
 
-	// LISTAR
 	@GetMapping("/")
-	public String list(Model model) {
+	public String index(Model model) {
+		model.addAttribute("titulo", "Módulo Matrícula");
+		return "/matricula/modulo";
+	}	
 
+	@GetMapping("/lista")
+	public String list(Model model) {
 		model.addAttribute("titulo", "Alumnos Matriculados");
 		return "/matricula/lista";
 	}
