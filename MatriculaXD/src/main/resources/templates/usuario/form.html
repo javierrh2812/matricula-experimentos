@@ -82,17 +82,6 @@
 					</div>
 
 
-					<div th:if="${roles}" class="row">
-						<div class="col-auto">
-							<label>ROL:</label> <select class="form-select" required
-								th:field="*{role}" name="role">
-								<option th:each="x : ${roles}" th:value="${x.id}"
-									th:text="${x.nombre}"></option>
-							</select>
-						</div>
-
-					</div>
-
 
 					<div class="buttons">
 						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>

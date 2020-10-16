@@ -94,8 +94,7 @@ public class SeguridadController {
 	@PostMapping("/usuarios/guardar")
 	public String saveAlumno(@Valid Usuario usuario, BindingResult result, Model model, 
 			RedirectAttributes flash, SessionStatus status,
-			@RequestParam(required = false, name = "pwd")String password,
-			@RequestParam(required = false, name = "role")Long rol_id) {
+			@RequestParam(required = false, name = "pwd")String password) {
 
 
 		String mensajeFlash = usuario.getId() == null ? "El usuario se registró existosamente"
@@ -110,8 +109,7 @@ public class SeguridadController {
 		}
 		
 		log.info("contraseña nueva: "+usuario.getPassword());
-		
-		usuario.setRole(usuarioService.getRolById(rol_id));
+		usuario.setRole(usuarioService.getRolById((long) 2));
 		log.info("intentando guardar usuario:" + usuario.toString());
 		usuarioService.guardarUsuario(usuario);
 		

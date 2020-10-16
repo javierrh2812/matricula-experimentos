@@ -29,7 +29,7 @@
 
 							<tr th:each="x : ${usuarios}">
 								<td th:text="${x.username}"></td>
-								<td th:text="${x.role.getNombre()}"></td>
+								<td th:text="${x.role.nombre}"></td>
 								<td ><a th:href="'/usuarios/ver/'+${x.id}">Info</a></td>
 							</tr>
 						</tbody>
