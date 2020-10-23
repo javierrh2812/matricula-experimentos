@@ -45,13 +45,13 @@ public class MatriculaController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("titulo", "Módulo Matrícula");
-		return "/matricula/modulo";
+		return "matricula/modulo";
 	}	
 
 	@GetMapping("/lista")
 	public String list(Model model) {
 		model.addAttribute("titulo", "Alumnos Matriculados");
-		return "/matricula/lista";
+		return "matricula/lista";
 	}
 
 	// VER INFO
@@ -74,7 +74,7 @@ public class MatriculaController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		return "/matricula/form";
+		return "matricula/form";
 	}
 
 	// NUEVa matricula
