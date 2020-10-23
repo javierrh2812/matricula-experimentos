@@ -42,12 +42,34 @@
     </script>
 
     <script type="text/javascript" th:fragment="scriptForm">
+    
+    function lineaMatricula(cursoIndex, cursoNombre, docenteId, docenteNombre ){
+    	console.log(cursoNombre, docenteId, docenteNombre)
+    	let linea =
+    	`<tr id="linea${cursoIndex}">
+    		<td>
+    			<input id="curso${cursoIndex}" type="hidden" name="cursos[]" value="${cursoNombre}"/>
+    			<span>${cursoNombre}</span>
+    		</td>
+    		<td id="docente${docenteId}">
+    			<input type="hidden" value="${docenteId}"name="docentes[]"/>
+    			<span>${docenteNombre}</span>
+    		</td>
+    		<td>
+    			<a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a>
+    		</td>
+    	</tr>`
+    	
+    	return linea
+    }
+    
       document.addEventListener("DOMContentLoaded", () => {
         const docentesDiv = document.querySelector("#docentesDiv");
         const cursoSelect = document.querySelector("#cursoSelect");
         const cursosTBody = document.querySelector("#cursosMatriculados");
         const agregarBtn = document.getElementById("btnAgregar");
         let docenteSelect = document.querySelector("#docenteSelect");
+        
         agregarBtn.addEventListener("click", (e) => e.preventDefault());
 
         cursoSelect.onchange = () => {
@@ -59,41 +81,32 @@
 
         agregarBtn.onclick = () => {
           if (cursoSelect.value != "0" && docenteSelect.value != "0") {
-            if (!hasCurso())
-              cursosTBody.innerHTML += `<tr id="linea${
-                cursoSelect.selectedIndex
-              }">
-						<td id="curso${cursoSelect.selectedIndex}"><input name="cursos[]" value="${
-                cursoSelect.value
-              }"/></td>
-						<td class="d-none"><input type="hidden" value="${
-              docenteSelect.value
-            }"name="docentes[]" /></td>
-						<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
-						<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>
-						</tr>`;
+        	  
+        	let nombreDocente = docenteSelect.options[docenteSelect.selectedIndex].text	
+            if (!hasCurso()) cursosTBody.innerHTML+=
+            	lineaMatricula(
+            		cursoSelect.selectedIndex, 
+            		cursoSelect.value, 
+            		docenteSelect.value,
+            		nombreDocente
+            	)	
+
             else {
-              let el = "linea" + cursoSelect.selectedIndex;
-              document.getElementById(el).innerHTML = `<td id="curso${
-                cursoSelect.selectedIndex
-              }"><input name="cursos[]" readOnly value="${
-                cursoSelect.value
-              }"/></td>
-					<td class="d-none"><input type="hidden" value="${
-            docenteSelect.value
-          }"name="docentes[]" /></td>
-					<td>${docenteSelect.options[docenteSelect.selectedIndex].text}</td>
-					<td><a href="#" onclick="parentNode.parentNode.parentNode.removeChild(parentNode.parentNode)">Quitar</a></td>`;
+              let el = "linea" + cursoSelect.selectedIndex
+				document.getElementById(el).children[1].innerHTML = 
+					`<input type="hidden" value="${docenteSelect.value}"name="docentes[]"/>
+    				<span>${nombreDocente}</span>`
             }
           }
-        };
+        }; // end onclick
 
         function hasCurso() {
-          for (let el of Array.from(
-            document.querySelectorAll("td[id*='curso']")
-          )) {
-            if (el.id === "curso" + cursoSelect.selectedIndex) return true;
-          }
+        	// $ es una funcion query selector all
+        	// esta funcion itera sobre un array formado con todos los input de cursos
+        	// si encuentra que el curso ya existe, retorna verdadero
+          	for (let el of Array.from($("input[id*='curso']"))) {
+            	if (el.id === "curso" + cursoSelect.selectedIndex) return true;
+          	}
           return false;
         }
       });

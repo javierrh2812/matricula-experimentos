@@ -1,158 +1,116 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="layout/layout :: head" />
+<head th:replace="layout/layout :: head" />
 
-  <body>
-    <header th:replace="layout/layout::header"></header>
+<body>
+	<header th:replace="layout/layout::header"></header>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav th:replace="layout/layout::sidebar"></nav>
+	<div class="container-fluid">
+		<div class="row">
+			<nav th:replace="layout/layout::sidebar"></nav>
 
-        <!-- INICIO MAIN -->
-        <main id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
-          <h1 th:text="${titulo}">INFO DE MATRICULO</h1>
+			<!-- INICIO MAIN -->
+			<main id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+				<h1 th:text="${titulo}">INFO DE MATRICULO</h1>
 
-          <h5 th:if="not ${matricula}">
-            No se encontró al alumno o a la matrícula
-          </h5>
-          <form
-            th:object="${matricula}"
-            th:fragmente="formMatricula"
-            action="/matriculas/guardar"
-            th:method="POST"
-          >
-            <!-- ALUMNO INPUT -->
-            <div th:if="*{id}">
-              <div>
-                <label
-                  >Alumno:
-                  <input
-                    th:field="*{alumno}"
-                    class="form-control"
-                    required
-                    disabled
-                /></label>
-                <button class="btn btn-info" th:text="'Agregar curso'"></button>
-              </div>
-            </div>
+				<h5 th:if="not ${matricula}">No se encontró al alumno o a la
+					matrícula</h5>
+				<form th:object="${matricula}" th:fragmente="formMatricula"
+					action="/matriculas/guardar" th:method="POST">
+					<!-- ALUMNO INPUT -->
+					<div th:if="*{id}">
+						<div>
+							<label>Alumno: <input th:field="*{alumno}"
+								class="form-control" required disabled /></label>
+							<button class="btn btn-info" th:text="'Agregar curso'"></button>
+						</div>
+					</div>
 
-            <div th:if="not *{id}">
-              <label class="col-sm-2 col-form-label">
-                Alumno:
-                <select class="form-select" th:field="*{alumno}" required>
-                  <option value="0" disabled selected>Elegir Alumno</option>
-                  <option
-                    th:each="x : ${alumnos}"
-                    th:value="${x.id}"
-                    th:text="${x.nombre + ' ' + x.apellido}"
-                  ></option>
-                </select>
-              </label>
-            </div>
+					<div th:if="not *{id}">
+						<label class="col-sm-2 col-form-label"> Alumno: <select
+							class="form-select" th:field="*{alumno}" required>
+								<option value="0" disabled selected>Elegir Alumno</option>
+								<option th:each="x : ${alumnos}" th:value="${x.id}"
+									th:text="${x.nombre + ' ' + x.apellido}"></option>
+						</select>
+						</label>
+					</div>
 
-            <!-- SEMESTRE INPUT -->
-            <div class="col-sm-2">
-              <label class="col-sm-2 col-form-label"> Semestre: </label>
-              <input th:field="*{semestre}" class="form-control" disabled />
-            </div>
+					<!-- SEMESTRE INPUT -->
+					<div class="col-sm-2">
+						<label class="col-sm-2 col-form-label"> Semestre: </label> <input
+							th:field="*{semestre}" class="form-control" disabled />
+					</div>
 
-            <!-- BUSQUEDA DE CURSO -->
+					<!-- BUSQUEDA DE CURSO -->
 
-            <div class="row" style="">
-              <!-- LISTA DE CURSOS -->
-              <div class="col-auto">
-                <label class="col-form-label">
-                  Cursos:
-                  <select id="cursoSelect" class="form-select">
-                    <option value="0" selected disabled>Elegir Curso</option>
-                    <option
-                      th:each="x : ${cursos}"
-                      th:value="${x}"
-                      th:text="${x}"
-                    ></option></select
-                ></label>
-              </div>
+					<div class="row" style="">
+						<!-- LISTA DE CURSOS -->
+						<div class="col-auto">
+							<label class="col-form-label"> Cursos: <select
+								id="cursoSelect" class="form-select">
+									<option value="0" selected disabled>Elegir Curso</option>
+									<option th:each="x : ${cursos}" th:value="${x}" th:text="${x}"></option>
+							</select></label>
+						</div>
 
-              <!-- BUSQUEDA DE DOCENTE -->
-              <div class="col-auto">
-                <label class="col-form-label">
-                  Docente:
-                  <select id="docenteSelect" class="form-select">
-                    <option value="0" selected disabled>Elegir Docente</option>
-                    <option
-                      th:if="${docentes}"
-                      th:each="x : ${docentes}"
-                      th:value="${x.id}"
-                      th:text="${x.nombre + ' '+ x.apellido}"
-                    ></option>
-                  </select>
-                </label>
-              </div>
+						<!-- BUSQUEDA DE DOCENTE -->
+						<div class="col-auto">
+							<label class="col-form-label"> Docente: <select
+								id="docenteSelect" class="form-select">
+									<option value="0" selected disabled>Elegir Docente</option>
+									<option th:if="${docentes}" th:each="x : ${docentes}"
+										th:value="${x.id}" th:text="${x.nombre + ' '+ x.apellido}"></option>
+							</select>
+							</label>
+						</div>
 
-              <div class="col-auto" style="margin-top: 28px">
-                <button
-                  id="btnAgregar"
-                  class="btn btn-info mx-2 col-auto"
-                  th:text="'Agregar curso'"
-                ></button>
-              </div>
-            </div>
+						<div class="col-auto" style="margin-top: 28px">
+							<button id="btnAgregar" class="btn btn-info mx-2 col-auto"
+								th:text="'Agregar curso'"></button>
+						</div>
+					</div>
 
-            <div style="width: 500px">
-              <br />
-              <table class="table">
-                <thead>
-                  <tr>
-                    <td>Curso</td>
-                    <td>Docente</td>
-                    <td></td>
-                  </tr>
-                </thead>
+					<div style="width: 500px">
+						<br />
+						<table class="table">
+							<thead>
+								<tr>
+									<td>Curso</td>
+									<td>Docente</td>
+									<td></td>
+								</tr>
+							</thead>
 
-                <tbody id="cursosMatriculados">
-                  <tr
-                    th:if="*{cursosMatriculados}"
-                    th:each="row : *{cursosMatriculados}"
-                  >
-                    <td th:text="${curso.nombre}"></td>
-                    <td th:text="${curso.docente.getNombreCompleto}"></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+							<tbody id="cursosMatriculados">
+								<tr th:if="*{cursosMatriculados}"
+									th:each="row : *{cursosMatriculados}">
+									<td th:text="${curso.nombre}"></td>
+									<td th:text="${curso.docente.getNombreCompleto}"></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 
-            <!-- DIV BUTTONS -->
-            <div class="buttons">
-              <button
-                class="btn btn-primary"
-                type="submit"
-                th:text="Aceptar"
-              ></button>
-              <button
-                class="btn btn-secondary"
-                th:text="Regresar"
-                onclick="history.back()"
-              ></button>
-              <a
-                class="btn btn-danger"
-                type="button"
-                th:text="Eliminar"
-                th:if="*{id}"
-                th:href="@{eliminar}"
-                onclick="return confirm('ï¿½Estï¿½ seguro de eliminar?')"
-              ></a>
-            </div>
-          </form>
-        </main>
-        <!-- FIN MAIN -->
-      </div>
-    </div>
+					<!-- DIV BUTTONS -->
+					<div class="buttons">
+						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
+						<button class="btn btn-secondary" th:text="Regresar"
+							onclick="history.back()"></button>
+						<a class="btn btn-danger" type="button" th:text="Eliminar"
+							th:if="*{id}" th:href="@{eliminar}"
+							onclick="return confirm('ï¿½Estï¿½ seguro de eliminar?')"></a>
+					</div>
+				</form>
+			</main>
+			<!-- FIN MAIN -->
+		</div>
+	</div>
 
-    <footer th:replace="layout/layout::footer"></footer>
+	<footer th:replace="layout/layout::footer"></footer>
 
-    <script th:replace="matricula/js/scripts::scriptForm"></script>
-  </body>
+	<script th:replace="matricula/js/scripts::scriptForm"></script>
+</body>
 </html>
