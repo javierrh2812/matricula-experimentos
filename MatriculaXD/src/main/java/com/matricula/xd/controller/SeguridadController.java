@@ -54,7 +54,7 @@ public class SeguridadController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		return "/usuario/form";
+		return "usuario/form";
 	}
 
 	// VER
@@ -63,13 +63,13 @@ public class SeguridadController {
 		model.addAttribute("usuario", usuarioService.encontrarUsuarioPorId(id).get());
 		model.addAttribute("titulo", "Información de Usuario");
 		model.addAttribute("roles", usuarioService.getAllRoles());
-		return "/usuario/form";
+		return "usuario/form";
 	}
 
 	@GetMapping("/usuarios")
 	public String listaDeUsuarios(Model model) {
 		model.addAttribute("usuarios", usuarioService.listaDeUsuarios());
-		return "/usuario/lista";
+		return "usuario/lista";
 	}
 
 	// NUEVO
@@ -80,7 +80,7 @@ public class SeguridadController {
 		model.addAttribute("usuario", nuevo);
 		model.addAttribute("titulo", "Nuevo Usuario");
 		model.addAttribute("roles", usuarioService.getAllRoles());
-		return "/usuario/form";
+		return "usuario/form";
 	}
 
 	// ELIMINAR
