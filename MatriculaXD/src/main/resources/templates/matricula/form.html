@@ -14,8 +14,8 @@
 			<main id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
 				<h1 th:text="${titulo}">INFO DE MATRICULO</h1>
 
-				<h5 th:if="not ${matricula}">No se encontró al alumno o a la
-					matrícula</h5>
+				<h5 th:if="not ${matricula}">No se encontro al alumno o a la
+					matricula</h5>
 				<form th:object="${matricula}" th:fragmente="formMatricula"
 					action="/matriculas/guardar" th:method="POST">
 					<!-- ALUMNO INPUT -->

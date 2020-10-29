@@ -68,7 +68,7 @@ public class AlumnoController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		return "/persona/form";
+		return "persona/form";
 	}
 
 	// NUEVO ALUMNO

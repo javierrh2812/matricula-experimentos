@@ -66,7 +66,7 @@ public class CursoController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		return "/curso/form";
+		return "curso/form";
 	}
 
 	// NUEVO

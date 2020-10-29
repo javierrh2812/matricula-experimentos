@@ -64,7 +64,7 @@ public class DocenteController {
 			model.addAttribute("error", e.getMessage());
 		}
 
-		return "/persona/form";
+		return "persona/form";
 	}
 
 	// NUEVO 
