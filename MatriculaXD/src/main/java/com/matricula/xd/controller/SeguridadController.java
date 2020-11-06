@@ -79,7 +79,6 @@ public class SeguridadController {
 		Usuario nuevo = new Usuario();
 		model.addAttribute("usuario", nuevo);
 		model.addAttribute("titulo", "Nuevo Usuario");
-		model.addAttribute("roles", usuarioService.getAllRoles());
 		return "usuario/form";
 	}
 
@@ -109,7 +108,7 @@ public class SeguridadController {
 		}
 		
 		log.info("contraseña nueva: "+usuario.getPassword());
-		usuario.setRole(usuarioService.getRolById((long) 2));
+		if (usuario.role==null) usuario.setRole(usuarioService.getRolById((long) 2));
 		log.info("intentando guardar usuario:" + usuario.toString());
 		usuarioService.guardarUsuario(usuario);
 		
