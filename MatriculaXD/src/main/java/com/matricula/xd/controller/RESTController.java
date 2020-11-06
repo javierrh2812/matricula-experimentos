@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.matricula.xd.entity.Docente;
 import com.matricula.xd.service.ICursoService;
 import com.matricula.xd.service.IDocenteService;
+import com.matricula.xd.service.IAlumnoService;
+import com.matricula.xd.service.ICursoService;
+import com.matricula.xd.service.UsuarioService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,9 +28,13 @@ public class RESTController {
 	
 	@Autowired
 	private ICursoService cursoService;
-
 	@Autowired
 	private IDocenteService docenteService;
+	@Autowired
+	private IAlumnoService alumnoService;
+	@Autowired
+	private UsuarioService usuarioService;
+
 
 
 	@GetMapping("cursos")
@@ -46,6 +53,19 @@ public class RESTController {
 		}
 		return new ArrayList<Entry<Long,String>>(docentes.entrySet());
 		
+	}
+
+	@GetMapping("/existeDni")
+	public Boolean existeDocenteOAlumnoConDni(@RequestParam(value="dni")String dni){
+		return (docenteService.existeDocenteConDni(dni) || alumnoService.existeAlumnoConDni(dni));
+	}
+	@GetMapping("/existeCodigo")
+	public Boolean existeCodigoDeCurso(@RequestParam(value="codigo")String codigo){
+		return (cursoService.existeCursoPorCodigo(codigo));
+	}
+	@GetMapping("/existeUsuario")
+	public Boolean existeNombreDeUsuario(@RequestParam(value="usuario")String usuario){
+		return (usuarioService.existeUsuarioPorUsername(usuario));
 	}
 
 }

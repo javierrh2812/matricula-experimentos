@@ -11,6 +11,7 @@ import com.matricula.xd.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+    
     Usuario findByUsername(String username);
     
     @Query("select u from Usuario u where u.role.nombre='ROLE_USER'")

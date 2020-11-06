@@ -21,7 +21,7 @@
 					<div>
 						<label>Codigo
 						
-						<input th:if="not *{id}"
+						<input id="codigo" th:if="not *{id}"
 							class="form-control" pattern="[0-9]{5}" required
 							placeholder="Ingrese el código"
 							title="Ingresar un código válido. Solo números de 5 dígitos"
@@ -72,11 +72,29 @@
 
 	<footer th:replace="layout/layout::footer"></footer>
 	<script>
-	for (let input of document.querySelectorAll("input")){
-		input.onchange=()=>{
-			input.value = input.value.trim();
-		}
-	}
+		document.addEventListener("DOMContentLoaded", () => {
+
+			const codigoInput = document.getElementById("codigo")
+			const codigoValue = codigoInput.value ? codigoInput.value : null
+			codigoInput.addEventListener("change", () => {
+				let url = `${domain}api/existeCodigo?codigo=${codigoInput.value}`
+
+				if (codigoValue !== codigoInput.value)
+					fetch(url)
+						.then(res => res.json())
+						.then(json => {
+							if (json) {
+								alert("El Codigo ingresado ya existe")
+								codigoInput.value = ""
+							}
+						})
+						.catch(err => { console.log(err) })
+			})
+
+
+
+
+		})
 	</script>
 </body>
 

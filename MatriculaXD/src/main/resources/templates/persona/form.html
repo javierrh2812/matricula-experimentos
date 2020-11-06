@@ -138,15 +138,32 @@
 		</div>
 	</div>
 	<footer th:replace="layout/layout::footer"></footer>
-	<script>
-	if(document.title.includes("Inform")){
+	<script >
+		document.addEventListener("DOMContentLoaded", () => {
+
+
+
+				const dniInput = document.getElementById("dni")
+				const dniValue = dniInput.value? dniInput.value: null
+				dniInput.addEventListener("change", () => {
+					let url = `${domain}api/existeDni?dni=${dniInput.value}`
+
+					if (dniValue !== dniInput.value)
+					fetch(url)
+						.then(res => res.json())
+						.then(json => {
+							if (json) {
+								alert("El DNI ya pertenece a un alumno o un docente")
+								dniInput.value = ""
+							}
+						})
+						.catch(err => { console.log(err) })
+				})
+
 		
-		document.getElementById("dni").readOnly=true;
-		document.getElementById("sexo").readOnly=true;
-		document.getElementById("correo").readOnly=true;
-		document.getElementById("fecNacimiento").readOnly=true;
-	}
-	
+
+
+			})
 	</script>	
 	
 </body>

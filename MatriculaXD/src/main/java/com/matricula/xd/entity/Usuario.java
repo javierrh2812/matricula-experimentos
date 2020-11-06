@@ -1,4 +1,5 @@
 package com.matricula.xd.entity;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ public @Data class Usuario{
     
     @Length(min=4, max = 15, message = "El nombre de usuario debe tener entre 4 y 15 caracteres. Solo letras y números permitidos")
     @NotEmpty(message = "El campo no puede estar vacío")
+    @Column(unique=true)
     private String username;
     
     @NotEmpty(message = "El campo no puede estar vacío")

@@ -44,7 +44,7 @@ public class DocenteServiceImpl implements IDocenteService{
 
 	@Override
 	public Boolean existeDocenteConDni(String dni) {
-		if (docenteRepository.findByDni(dni).isEmpty()) return false;
+		if (docenteRepository.findByDni(dni)==null) return false;
 		else return true;
 	}
 

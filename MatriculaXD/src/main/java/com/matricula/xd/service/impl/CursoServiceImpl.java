@@ -67,7 +67,7 @@ public class CursoServiceImpl implements ICursoService{
 
 	@Override
 	public Boolean existeCursoPorCodigo(String codigo) {
-		if (cursoRepository.findByCodigo(codigo).isEmpty())return false;
+		if (cursoRepository.findByCodigo(codigo)==null)return false;
 		else return true;
 	}
 

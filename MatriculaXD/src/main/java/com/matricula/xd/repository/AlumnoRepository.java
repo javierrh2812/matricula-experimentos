@@ -19,12 +19,11 @@ public interface AlumnoRepository extends CrudRepository<Alumno, Long>  {
 			+ "where m.semestre=?2 and c.id=?1")
 	List<Alumno> fetchAlumnosByCursoAndCiclo(Long idCurso, String ciclo);
 	
-	List<Alumno> findByDni(String dni);
+	Alumno findByDni(String dni);
 	
 	@Query("select a from Alumno a where LOWER(a.nombre) like LOWER(?1) or LOWER(a.apellido) like LOWER(?1)")
 	List<Alumno> findByNombreOrApellidoLike(String term1);
 	
 	@Query("select a from Alumno a where a.habilitado = true and a.matriculado=false")
-	List<Alumno> findAllByAlumnosHabilitadosySinMatricula();
-	
+	List<Alumno> findAllByAlumnosHabilitadosySinMatricula();	
 }

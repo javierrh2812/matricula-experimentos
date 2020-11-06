@@ -26,6 +26,6 @@ public interface CursoRepository extends CrudRepository<Curso, Long>  {
 	@Query("select c from Curso c where LOWER(c.nombre) like LOWER(?1)")
 	List<Curso> findByNombreLike(String term);
 	
-	List<Curso> findByCodigo(String codigo);
+	Curso findByCodigo(String codigo);
 	
 }

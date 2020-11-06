@@ -43,7 +43,7 @@ public class AlumnoServiceImpl implements IAlumnoService{
 
 	@Override
 	public Boolean existeAlumnoConDni(String dni) {
-		if (alumnoRepository.findByDni(dni).isEmpty()) return false;
+		if (alumnoRepository.findByDni(dni)==null) return false;
 		else return true;
 	}
 

@@ -46,11 +46,11 @@
 
 					<div class="row">
 						<div class="col-auto">
-							<label>Nombre de usuario:</label> <input type="text"
+							<label>Nombre de usuario:</label> <input id="username" type="text"
 								class="form-control" th:field="*{username}" required
 								pattern="^[A-Za-z0-9_]{4,15}$"
 								placeholder="Ingresar nombre de usuario"
-								title="El nombre de usuario debe tener entre 4 y 15 caracteres. Solo letras y números permitido" />
+								title="El nombre de usuario debe tener entre 4 y 15 caracteres. Solo letras, números y guión bajo permitido" />
 						</div>
 
 						<div class="col-auto">
@@ -96,6 +96,30 @@
 	</div>
 
 	<footer th:replace="layout/layout::footer"></footer>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
 
+
+		const usernameInput = document.getElementById("username")
+		const username = usernameInput.value ? usernameInput.value : null
+		usernameInput.addEventListener("change", () => {
+			let url = `${domain}api/existeUsuario?usuario=${usernameInput.value}`
+
+			if (username !== usernameInput.value)
+				fetch(url)
+					.then(res => res.json())
+					.then(json => {
+						if (json) {
+							alert("El nombre de usuario ya existe")
+							usernameInput.value = ""
+						}
+					})
+					.catch(err => { console.log(err) })
+		})
+
+
+
+	})
+</script>
 </body>
 </html>
