@@ -108,7 +108,7 @@ public class SeguridadController {
 		}
 		
 		log.info("contraseña nueva: "+usuario.getPassword());
-		if (usuario.role==null) usuario.setRole(usuarioService.getRolById((long) 2));
+		if (usuario.getRole()==null) usuario.setRole(usuarioService.getRolById((long) 2));
 		log.info("intentando guardar usuario:" + usuario.toString());
 		usuarioService.guardarUsuario(usuario);
 		
