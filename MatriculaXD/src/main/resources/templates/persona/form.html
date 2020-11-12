@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="layout/layout :: head" />
+
 <body>
 	<header th:replace="layout/layout::header"></header>
 
@@ -16,27 +18,23 @@
 
 				<h1 th:text="${titulo}">INFO DE ALUMNO</h1>
 
-				<form id="form" th:object="${persona}" th:action="${action}"
-					th:method="post">
+				<form id="form" th:object="${persona}" th:action="${action}" th:method="post">
 
 					<input type="hidden" th:field="*{id}" />
 					<div class="row">
 						<!-- NOMBRE -->
 						<div class="col-auto form-el">
-							<label>Nombre: <input id="nombre" type="text"
-								class="form-control" th:field="*{nombre}" required
-								pattern="[A-Za-z ]{1,}" maxlength="20"
-								placeholder="Ingresar nombre"
-								title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
+							<label>Nombre: <input id="nombre" type="text" class="form-control" th:field="*{nombre}"
+									required pattern="[A-Za-z ]{1,}" maxlength="20" placeholder="Ingresar nombre"
+									title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
 							<small></small>
 						</div>
 						<!-- APELLIDO -->
 						<div class="col-auto form-el">
-							<label>Apellido: <input id="apellido" type="text"
-								class="form-control" th:field="*{apellido}" required
-								pattern="[A-Za-z ]{1,}" maxlength="20"
-								placeholder="Ingresar apellido"
-								title="Ingresar un apellido válido. Solo letras y como máximo 20 caracteres" /></label>
+							<label>Apellido: <input id="apellido" type="text" class="form-control"
+									th:field="*{apellido}" required pattern="[A-Za-z ]{1,}" maxlength="20"
+									placeholder="Ingresar apellido"
+									title="Ingresar un apellido válido. Solo letras y como máximo 20 caracteres" /></label>
 							<small></small>
 						</div>
 
@@ -46,23 +44,21 @@
 					<div class="row">
 						<!-- DNI -->
 						<div class="col-auto form-el">
-							<label>DNI: <input id="dni" type="text"
-								class="form-control" th:field="*{dni}" required
-								pattern="[0-9]{8}" placeholder="Ingresar DNI"
-								title="Ingresar un DNI válido. Solo 8 dígitos numéricos" />
-							</label> 
+							<label>DNI: <input id="dni" type="text" class="form-control" th:field="*{dni}" required
+									pattern="[0-9]{8}" placeholder="Ingresar DNI"
+									title="Ingresar un DNI válido. Solo 8 dígitos numéricos" />
+							</label>
 						</div>
 
 
 						<!-- SEXO -->
-						
+
 						<div class="col-auto form-el">
-							<label>Sexo: <select id="sexo" class="form-select"
-								required th:field="*{sexo}">
+							<label>Sexo: <select id="sexo" class="form-select" required th:field="*{sexo}">
 									<option th:value="0" disabled>Elegir sexo</option>
 									<option th:value="M" th:text="Masculino"></option>
 									<option th:value="F" th:text="Femenino"></option>
-							</select>
+								</select>
 							</label>
 						</div>
 					</div>
@@ -70,19 +66,17 @@
 					<div class="row">
 						<!-- telefono -->
 						<div class="col-auto form-el">
-							<label>Teléfono: <input id="telefono" type="text"
-								class="form-control" th:field="*{telefono}" required
-								pattern="[0-9]{9}" placeholder="Ingrese el teléfono"
-								title="Ingresar un teléfono válido. Solo 9 dígitos numéricos" /></label>
+							<label>Teléfono: <input id="telefono" type="text" class="form-control"
+									th:field="*{telefono}" required pattern="[0-9]{9}" placeholder="Ingrese el teléfono"
+									title="Ingresar un teléfono válido. Solo 9 dígitos numéricos" /></label>
 							<small></small>
 						</div>
 						<!-- correo -->
 
 						<div class="col-auto">
-							<label>Correo: <input id="correo" type="email" required
-								class="form-control" th:field="*{correo}"
-								placeholder="Ingresar el correo"
-								title="Ingresar un correo válido." /></label> <small></small>
+							<label>Correo: <input id="correo" type="email" required class="form-control"
+									th:field="*{correo}" placeholder="Ingresar el correo"
+									title="Ingresar un correo válido." /></label> <small></small>
 						</div>
 					</div>
 
@@ -91,30 +85,27 @@
 
 						<!-- fecnacimiento -->
 						<div class="col-auto">
-							<label>Fecha de Nacimiento: <input id="fecNacimiento"
-								type="date" class="form-control" th:field="*{fecNacimiento}"
-								required /></label> <small></small>
+							<label>Fecha de Nacimiento: <input id="fecNacimiento" type="date" class="form-control"
+									th:field="*{fecNacimiento}" required /></label> <small></small>
 						</div>
 
 
 						<!-- habilitado -->
 						<div class="col-auto form-el" th:if="*{id}">
-							<label>Habilitado: <select id="habilitado"
-								class="form-select" required th:field="*{habilitado}">
+							<label>Habilitado: <select id="habilitado" class="form-select" required
+									th:field="*{habilitado}">
 									<option th:value=true th:text="SI"></option>
 									<option th:value=false th:text="NO"></option>
-							</select>
+								</select>
 							</label>
 						</div>
 
 						<!-- direccion -->
 						<div class="col-auto form-el">
 							<label>Dirección: </label>
-							
-							<input type="text" class="form-control"
-								placeholder="Ingresar dirección"
-								title="Como máximo 40 caracteres"
-								th:field="*{direccion}" required maxlength=40 />
+
+							<input type="text" class="form-control" placeholder="Ingresar dirección"
+								title="Como máximo 40 caracteres" th:field="*{direccion}" required maxlength=40 />
 						</div>
 
 					</div>
@@ -124,8 +115,7 @@
 
 					<div class="buttons">
 						<button class="btn btn-primary" type="submit" th:text="Aceptar"></button>
-						<button class="btn btn-secondary" th:text="Regresar"
-							onclick="history.back()"></button>
+						<button class="btn btn-secondary" th:text="Regresar" onclick="history.back()"></button>
 						<!-- 
 						<a class="btn btn-danger" type="button" th:text="Eliminar"
 							th:if="*{id}" th:href="@{eliminar}"
@@ -138,17 +128,17 @@
 		</div>
 	</div>
 	<footer th:replace="layout/layout::footer"></footer>
-	<script >
+	<script>
 		document.addEventListener("DOMContentLoaded", () => {
 
 
 
-				const dniInput = document.getElementById("dni")
-				const dniValue = dniInput.value? dniInput.value: null
-				dniInput.addEventListener("change", () => {
-					let url = `${domain}api/existeDni?dni=${dniInput.value}`
+			const dniInput = document.getElementById("dni")
+			const dniValue = dniInput.value ? dniInput.value : null
+			dniInput.addEventListener("change", () => {
+				let url = `${domain}api/existeDni?dni=${dniInput.value}`
 
-					if (dniValue !== dniInput.value)
+				if (dniValue !== dniInput.value)
 					fetch(url)
 						.then(res => res.json())
 						.then(json => {
@@ -158,13 +148,11 @@
 							}
 						})
 						.catch(err => { console.log(err) })
-				})
-
-		
-
-
 			})
-	</script>	
-	
+
+		})
+	</script>
+
 </body>
+
 </html>

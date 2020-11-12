@@ -53,10 +53,10 @@ public @Data class Alumno {
 	private String direccion;
 	
 	@Column()
-	private Boolean habilitado=true; 
+	private Boolean habilitado; 
 	
 	@Column()
-	private Boolean matriculado=false; 
+	private Boolean matriculado; 
 	
 	public String getNombreCompleto() {
 		return nombre +" "+apellido;

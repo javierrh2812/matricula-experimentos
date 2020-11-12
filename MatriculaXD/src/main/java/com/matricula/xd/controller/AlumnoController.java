@@ -86,7 +86,7 @@ public class AlumnoController {
 	
 	// GUARDAR FORM
 	@PostMapping(value = "/guardar")
-	public String saveAlumno(@Valid Alumno alumno, BindingResult result, Model model, RedirectAttributes flash,
+	public String saveAlumno(@Valid Alumno alumno, BindingResult result, Model model,
 			SessionStatus status) {
 		log.info("intentando guardar alumno:" + alumno.toString());
 		try {
@@ -96,15 +96,10 @@ public class AlumnoController {
 				
 				return "persona/form";
 			}
-			
-			String mensajeFlash="";
-			if (alumno.getId()==null) { 
-				mensajeFlash = "El alumno se registró exitosamente";
+			if (alumno.getId()==null) {
+				alumno.setMatriculado(false);
+				alumno.setHabilitado(true);
 			}
-			else {
-				mensajeFlash = "El alumno se modificó exitosamente";		
-			}
-			flash.addFlashAttribute("success", mensajeFlash);
 			alumnoService.save(alumno);
 			status.setComplete();
 			

@@ -123,7 +123,6 @@ public class MatriculaController {
 			matricula.getAlumno().setMatriculado(true);
 			matriculaService.save(matricula);
 
-			log.info(matricula.getAlumno().toString());
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
 
