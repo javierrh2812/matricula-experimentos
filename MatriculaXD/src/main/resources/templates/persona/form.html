@@ -150,6 +150,15 @@
 						.catch(err => { console.log(err) })
 			})
 
+
+			if (document.title.includes("Inform")) {
+
+				document.getElementById("dni").readOnly = true;
+				document.getElementById("sexo").readOnly = true;
+				document.getElementById("correo").readOnly = true;
+				document.getElementById("fecNacimiento").readOnly = true;
+			}
+
 		})
 	</script>
 
