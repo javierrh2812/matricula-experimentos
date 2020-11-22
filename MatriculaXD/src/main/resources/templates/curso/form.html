@@ -27,17 +27,22 @@
 							title="Ingresar un código válido. Solo números de 5 dígitos"
 							type="text" th:field="*{codigo}" /> 
 							
-						<input th:if="*{id}" class="form-control"
-							readonly th:field="*{codigo}" />
+						<input th:if="*{id}" 
+						       class="form-control" readonly 
+						       th:field="*{codigo}" />
 							
 							</label> 
 					</div>
 
 					<div>
-						<label>Nombre: <input class="form-control" maxlength=30
-							required placeholder="Ingrese el nombre de curso"
-							title="Ingresar un nombre valido Maximo 30 caracteres"
-							type="text" th:field="*{nombre}" /></label>
+					    <label>Nombre:</label> 
+					    <input class="form-control" pattern="[A-Za-z ]{1,}"
+						    maxlength=30 required 
+						    placeholder="Ingrese el nombre de curso"
+						    title="Ingresar un nombre valido Maximo 30 caracteres"
+						    type="text" th:field="*{nombre}" />
+
+						
 					</div>
 
 					<div th:if="${docentes}">

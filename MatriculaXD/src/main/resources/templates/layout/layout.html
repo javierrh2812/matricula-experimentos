@@ -25,7 +25,10 @@
 
 				<li class="nav-item text-nowrap">
 					<form method="POST" th:action="@{/logout}">
-						<h6 sec:authentication="name" style="display:inline; color: white"></h6> <button class="btn btn-secondary" type="submit">Signout</button>
+						<h6 sec:authentication="name" 
+						    style="display:inline; color: white"></h6> 
+						<button class="btn btn-secondary" 
+						    type="submit">Signout</button>
 					</form>
 				</li>
 			</ul>
