@@ -24,14 +24,10 @@
 					<div class="row">
 						<!-- NOMBRE -->
 						<div class="col-auto form-el">
-						    <label>Nombre:</label> 
-						    <input id="nombre" type="text" 
-						    class="form-control" 
-						    th:field="*{nombre}"
-						    required pattern="[A-Za-z ]{1,}" 
-						    maxlength="20" 
-						    placeholder="Ingresar nombre"
-						    title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" />
+							<label>Nombre: <input id="nombre" type="text" class="form-control" th:field="*{nombre}"
+									required pattern="[A-Za-z ]{1,}" maxlength="20" placeholder="Ingresar nombre"
+									title="Ingresar un nombre válido. Solo letras y como máximo 20 caracteres" /></label>
+							<small></small>
 						</div>
 						<!-- APELLIDO -->
 						<div class="col-auto form-el">
@@ -108,12 +104,8 @@
 						<div class="col-auto form-el">
 							<label>Dirección: </label>
 
-						    <input 
-						     type="text" class="form-control" 
-							placeholder="Ingresar dirección"
-							pattern="[0-9A-Za-z]"
-							title="Como máximo 40 caracteres" 
-							th:field="*{direccion}" required maxlength=40 />
+							<input type="text" class="form-control" placeholder="Ingresar dirección"
+								title="Como máximo 40 caracteres" th:field="*{direccion}" required maxlength=40 />
 						</div>
 
 					</div>
@@ -157,12 +149,6 @@
 						})
 						.catch(err => { console.log(err) })
 			})
-			
-			const fechaNac = document.getElementById("fecNacimiento")
-			let date = new Date()
-			date.setDate(date.getDate()-1)
-			let dateStr = date.toLocaleDateString('ko-KR').replaceAll(" ", "").replaceAll(".", "-").substring(0, 10)
-			fechaNac.setAttribute("max", dateStr);
 
 
 			if (document.title.includes("Inform")) {
