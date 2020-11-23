@@ -45,9 +45,7 @@
 							</label>
 						</div>
 
-
 						<!-- SEXO -->
-
 						<div class="col-auto form-el">
 							<label>Sexo: <select id="sexo" class="form-select" required th:field="*{sexo}">
 									<option th:value="0" disabled>Elegir sexo</option>
@@ -75,7 +73,6 @@
 						</div>
 					</div>
 
-
 					<div class="row">
 
 						<!-- fecnacimiento -->
@@ -83,7 +80,6 @@
 							<label>Fecha de Nacimiento: <input id="fecNacimiento" type="date" class="form-control"
 									th:field="*{fecNacimiento}" required /></label> <small></small>
 						</div>
-
 
 						<!-- habilitado -->
 						<div class="col-auto form-el" th:if="*{id}">
@@ -100,7 +96,7 @@
 							<label>Dirección: </label>
 
 							<input type="text" class="form-control" placeholder="Ingresar dirección"
-								pattern="[0-9A-Za-z ]" title="Como máximo 40 caracteres" th:field="*{direccion}"
+								pattern="[A-Za-z0-9 ]{1,}" title="Como máximo 40 caracteres" th:field="*{direccion}"
 								required maxlength=40 />
 						</div>
 
